@@ -1,0 +1,4762 @@
+===========================EC2==============
+-- elastic compute cloud
+
+-- ec2 is specific at region only 
+
+-- the datacentre handle by us is called "on-premises"
+
+-- in aws L.B never down coz it is not a server it is a service from a AWS 
+
+-- ELB is regional level
+
+-- u can use this ELB through url / dns 
+
+-- in generl we dont have any control on servers , but we have full control on servers which is created by ElasticBeanStalk (platform as a Service)
+
+----------------- "LightSail" :if u want to setup and crete virtual server which is already has everything installed (Readymade )
+
+-- it doesn't support auto-Scaling
+
+------------------------------------------AWS LAMBDA 
+
+-- lambda is serveless - no need to maintain servers by u 
+
+-- we create functions in the lambda , this function is called lambda functions 
+
+-----EVENT BRIDGE : whenever u click somethning event is generated everytime 
+
+-- event bridge : it holds all the events of aws services  
+
+-- u jst invoke the lambda funcn with the event bridge and do apply ur fuctions 
+
+-- Lambda is used for the "automation"
+
+-- lambda and event bridge are service 
+
+-- lambda is regional level and it supports multiple languages like java,py,go,ruby 
+
+
+===========================AWS - Storage S3,EBS=======================
+
+-- in olden days 
+
+we have Floppy -- 2MB
+
+-- CD's = 700mb
+-- DVD == 4.7GB
+-- Pendrive == 12gb
+-- Hard Disk == 2TB 
+
+
+--- aws came with S3 (simple storage Service), it has unlimited storage 
+
+--- u can store any type of files , u can upload and download the files
+
+--- it is "Server less "
+
+--- s3 --> Bucket--> Objects
+
+-- bucket is collection of objects 
+
+-- objects is a file
+
+-- name of the file is called "key"
+
+-- S3 is "Objected Based Storage"
+
+-- it also provided "static host website"
+
+-- s3 is global and buckets are regional
+
+-------------------EBS
+
+-- default volume is created when instance is created
+
+-- default for windows ec2 instance  in aws == it has storage capacity has 30GB 
+
+-- for Linnux ec2 instace based on os == 8 r 10 GB
+
+-- ebs is centralized storage , u go n create volume and then attach th e intance 
+
+-- volumes can be attached and dettach 
+
+-- s3 is object storage and ebs is block type storage
+
+-- default volm is called "root volume" , root volume contains o.s(linux, windows)
+
+-- u can attach multiple volumes to the ec2 instances
+
+-- ec2 supports only server os, not client os 
+
+-- max capacity of ebs volume is  is 16TB
+
+-- volumes can be pre provision
+
+-- u cant attach a single volume to multiple ec2 at the same time 
+
+-- volm size can be increased on FLY(no need to stop the ec2 instances)
+
+-- volum size cant decrease once u created , so u need to delete the volume n create new volume n migrate ur data to new volm n delete the old volume .
+
+-- Root volm has a device name for win/lin == /dev/sda1 or /dev/xvda
+
+-- for ubuntu == /dev/xvda
+
+-- u need to stop instance to deattach the root volm
+
+-- it is poosible to deattach the additional volume ut it is not recommended
+
+-- u cant delete the volm whilw it is attach so deattach first 
+
+-- ec2 instace and EBS is should be in same A.Z 
+
+====================================EFS=====================
+
+-- elastic file system , it is file based storage system, it has unlimited storage
+
+-- efs is only for the linux instances only
+
+-- duplicate is not possible (same name with 2 files)
+
+-- for windows ec2 instances we used == Fsx 
+
+-- EFS works with "NFSv4" protocal 
+
+-- in EFS u no need to pre-provision , it will automaticaaly increase and decrese based on ur file 
+
+-- it is used to mounted to multiple ec2 instances across A.Z
+
+-- it is regional limit
+
+============================SNOW FAMILY===============
+
+-- SnowCone --> 8TB
+
+-- SnowEdge--> 100TB
+
+-- SnowMobile --> PB's
+
+-- it is used for physical data transfer 
+
+-- all these snow family data  will be pushed to S3 
+
+-- S.F is used to transfer the huge data from on-premises to AWS and vice-versa
+
+-- it is encrypted and very safe to transfer 
+
+------------------- Glacier 
+
+-- it is used for "Archiving Purpose"
+
+-- it chaper then the s3
+
+--  all ur infrequent data stored in the Glacier
+
+-- ----------------storage Gateway
+
+-- it works as hybrid cloud service 
+
+-- the data that u have in S3, ebs,fsx,glacier  move these data into the on-premises through the "storage gateway", it it support only "S3, ebs,fsx,glacier" 
+
+----------------Database services
+
+-- RDs -- relational database service , it is not a database it is database service 
+
+-- all issue will be take care by the AWS 
+
+-- rds db instance, rds supports only rdbms db only  
+
+-- rds is a service where u can setup, configure, manage and maintain databases in aws 
+
+
+-- RDS supports 6 Engines ----- MOMPMA
+
+-- Mysql = Opensource
+-- Oracel = oracle
+-- Mssql = Microsoft
+-- Postgresql = opensource
+-- MariaDb = community based
+-- Aurora = AWS 
+
+
+-- if u want to transfer ur database u can use the service called "Database Migratin Service" (from on-premises to aws)
+
+
+---- AWS has introduce its own NOSQL database called "DynamoDB"
+
+-- it is nosql database service in aws 
+
+--  if u are storing huge data it is called " DatawareHouse"
+
+-- the dataware house service in the aws is called "Redshift" 
+
+-- if u have frequently data then db server has stored in the Cached Memory 
+
+-- in aws cached memory service is called "Elastic cache" which is in-memory database service
+
+-- low latency
+
+-- high performance
+
+-- "Elastic cache" supports 2 engines 
+
+1 Redis 
+
+2 Memcached 
+
+-- these are databses only but these are cache databases
+
+
+===================================Route53============
+
+-- it is DNS service from AWS 
+
+-- dns pot number is 53 , so it is called r53
+
+-- it contians records 
+
+--- it is "Global"
+
+-------------VPC 
+
+-- whatever resource that we have created all these are inside VPC only, 
+
+-- it is regional limit
+
+-- 5 vpc per region we are able to create
+
+-- this is we can called as "virtual Datacenter on AWS/cloud
+
+-- by deault 2 vpc cant talk each other, but if it is required we can 
+
+-- aws provided default vpc for us 
+
+-- every region has a default vpc
+
+-- VPN : virtual private network , in the shared internet we use vpn for secure purpose 
+
+-- Direct Connect : if u want to connect directly to aws without shared internet , it is quite expensive around 16k/month
+
+
+---- if u have customers all over the world , but ur appn in mumbai, the soln is to avoid high latency to the customers through out the world u can use "CloudFront" service
+
+
+-- in C.F we have Edge Locations ,every regions have edge locations and all these are cache ur application
+
+-- in C.F u create "Distribution" , while creating distribution u have to give "Origin"(elb,s3,Elasticbeanstalk..etc ) and TTL Value
+
+-- then u have to specify , which continent aws will cache ur appn(us,europe,asia) and geo-restriction also apply if u dont want to cache in specific continents
+
+-- how does cache ur appn ?
+
+by using CDN = Content Delivery Network , by using this network appn is cached in the edge location 
+
+-- how much time it will get Cache ?
+
+ans: TTL(time to live) , if u give ttl is 5 hours then it will cache for 5 hours 
+
+---- IMP: once u want to change the file , then it wont effect immediatly on edge-location , it will reflect only fter 5 hrs only
+
+-- so if u want to update the data immediatly in the edge locations we have concept called "invalidate Cache" 
+
+-- which is used to force the update content in the edge loction
+
+-- all the data cached based on TTL
+
+IMP : C.F will cache Static and Dynamic content in the edge locations
+
+--  c.f has edge locatins and these are connected with CDN
+
+
+
+==============================IAM========================
+
+-- Identity and access management 
+
+-- in the root account(main account) -- root user and IAM account 
+
+-- inside the root accnt we will create users called "iam user"
+
+-- permissions = policies both are same 
+
+-- u can control the entire AWS using IAM by providing proper pemissions to the IAM user
+
+-- two types of accounts 
+
+1 ROOT USER  -- super user have all permissions == log with Email/pwd
+
+2 IAM user --- limited permissions == login with username/pwd
+
+--- IAM is Access control on AWS Resource
+
+----------------------Organizations
+
+--- it will help to manage multiple root accounts 
+
+-- in organzations will have member accounts 
+
+-- u can control member accounts using SCP (service Control Policies)
+
+---------CloudWatch 
+
+-- used to monitor AWS services  
+
+-- u can set alarm using metrics(cpu,memory,network,requests etc...) in Cloud watch to send notifications through SNS
+
+-- c.w monitors the performance
+
+-- they are 2 types f mnitoring 
+
+1 basic monitoring : u will get data points every 5 min , which is free
+
+2 Detailed Monitoring : u will get datat points every 1 min, not free
+
+
+--- with c.w u can monitor appn also 
+
+-----------CloudTrail 
+
+-- whatever is happening in the aws console , all these are recorded in the c.T, it monitors entire AWS environment 
+
+-- it records, monitors, tracks, auditing, logs etc....
+
+------------Config 
+
+-- it is used to monitors the changes in AWS Resource 
+
+
+-------------------AWS Support 
+
+-- we have different supports 
+
+1 basic suppport  : FREEE 
+
+2 Developer support : 100$
+
+3 bussiness support : this is paid service , this is meant for enterprise level
+
+-- u will get reply within an hour 
+
+4 enterprise support   : a paid support service with the highest SLA available in 15 minutes 
+
+-- in this support u wil get one TAM(technical Account Manager) who are subject matter experts in their own fields 
+
+$15000 
+
+
+--- these are all based on SLA (service level Aggrement) 
+
+
+
+
+==================================IAM -- depth 
+
+-- with iam u cn conrol aws centrally 
+
+-- IAM is "Global"
+
+-- with the iam user/root user details u cant login into the EC2 instances but u can access ec2 service
+
+-- with the iam user/root user details used to jst login into the aws console 
+
+-- it is not ecommended to use root account for dailt work , instead of that use IAM user 
+
+-- to provide more security for ur account enable MFA (multi factor authentication) like google authenticator 
+
+-- MFA is ighly recommended for ROOT and IAM user account as well 
+
+-- 2 ways to access aws 
+
+1 AWS Console (GUI)
+
+2 programmatical Access : CLI, SDK's ,developer tools , it dont have any MFA
+
+-- every IAM user can have max 2 set of keys 
+
+-- dont create keys for root accnt
+
+=================================IAM Groups=========
+
+-- colectin of IAM users
+
+-- group under groups are not possibles
+
+-- it is possible to attach multiple policies to the IAM user, max is 10 policies
+
+-- u cant assign or create kys to the groups
+
+-- an IAM user can be attached to the multiple groups at the same time
+
+-- policy documents contain permissions
+
+-- policies are written in "JSON" format
+
+-- they are 2 types of policies
+
+1 manage policy : pre-defined policies created and managed by AWS 
+
+2 inline policy : created and mnaged by the customers
+
+-- ARN : Amazon Resource Name : if u want to give permissions to certain group or user by the id (ARN)
+
+-------------------------IAM ROLES
+
+--  Temporary Access without credentials
+
+-- u need to attach the roles to the ec2 instance in the backend 
+
+-- if u use th roles, u no need to configure keys on the ec2 instance
+
+-- based on the permissions that you attached to the ROLE, those pemissions are availabl from the ec2 instance
+
+-- 1 ec2 instance can have only 1 ROLE attached
+
+-- 1 ROLE can be attached to multiple ec2 instance
+
+----------- Identity Povider / Federation / IAM Identity Center
+
+-- SSO = Single Sign On 
+
+
+-- ACTIVE DIRECTORY also know as "Domain Controller"
+
+-- these are Directory Services
+
+
+-- to setup sso in AWS 
+
+-- Feeration to from LDAP to AWS 
+
+
+====================================IAM TAGS=======================
+
+-- Tags are key vaue pair 
+
+-- tags are used for identification purpose
+
+-- for every resource u have tags
+
+-- ARN are generated by AWS , where as tags are providede by Customer
+
+-- Tags are used for automation purpose
+
+-- Tags are used for cost optimization purpose also
+
+-- u can give "50 tags" max per resource
+
+-- tags are imp but these are optional
+
+-- Access Advisior : usd for auditing purpose , it shows the srvice permissions granted to the user and when those were last used 
+
+-- it is usd to revise ur policies to the users
+
+
+-- Access Analyzer : it is used to analyze the access for all IAM users and take actions on the findings
+
+
+
+
+IMP : to access he other accounts , by using ROLES u can access others account with the required permissions , once u set the policies on ur account and create role it wi create one URL and these url u can share it to the others to acces ur account with the given policies through the Roles 
+
+-- Always use inline policy for the Roles
+
+
+
+===========================IAM PRACTICALS=======================
+
+--create alias for ur account 
+
+-- open IAM in console nd create Alias name for ur account, instead of remember the account number u jst create alias name 
+
+
+-- explore allthings in IAM 
+
+
+==========================IAM Policies
+
+
+-- Inline policy 
+
+eg: how to cretae groups and users only 
+
+
+-- Policies > create policy > visual editor > select Service > slect acccoding to rquiremts > injso automatically it will create jso code > c.o nxt to create policy 
+
+
+
+=================Roles
+
+--  without credentials we can acess ervice for certain period
+
+-- go to roles > aws service > ec2 > select permision 
+
+
+==========identit center 
+
+eg :if someone want to access 3 aws accounts u no need to create iam user in 3 aws accounts , u jst go to I.C and create user name and give URL to the person he will able to login with 3 aws accounts with SSO(single sign one ) as they wants to login into which account with same credentils 
+
+
+========================ec2
+
+--it is  a web sevice from aws tht provides resizable compute in the cloud
+
+-- resizable: scale in n scale out == elasticity
+
+-- scaleup n scale in == scalability 
+
+-- ec2 is regional 
+
+-- ---------Pricing models in AWS
+
+1  ON-Demand instances: pay as u go 
+
+-fixed price , pay per hour 
+- no upfront payments
+- no predictable
+- no commitment
+- short term committment
+
+
+2  Reserved instances 
+
+- Long term commitent 
+- 1 or 3 years
+- upfront payments(full , partial)
+- 75% discount approx
+
+------- we have 3 types of RI
+
+a   Standard RI : where u get 75% discount
+
+b   convertible RI : to change the capacity of the instance 66% discount
+
+c   Schedule RI :  reserve it for short term like fraction of day , week, or month
+
+
+3 Spot Instances: 
+
+- Biding 
+- huge capacity for cheaper price
+- 90% discount
+
+
+4 Dedicated Host
+
+- if u need a physical machine with VM's for this model 
+
+- privaacy
+
+- high security
+
+---- ---------recently aws launched savings plans also 
+
+- it has same as RI but difernet starategy
+
+
+----------------------------------------------EC2Families/instance type 
+
+- General Instance = for general purpose
+
+- Memory instannce = if u need more memory for ur application
+
+- CPU instances = more CPU's
+
+- storage = for storage purpose
+
+- GPU = for heavy machines, Graphicd etc 
+
+----instace Type == CPU + Memory
+
+- during the scalability , no data loss is occurs , coz data is stored in EBS volumes,downtime is there 
+
+- if u have HA , no downtime
+
+---------Brustable performnce instance 
+
+- it is billable 
+
+- whn there is lot of traffic coming to the ec2instance(t2.micro) it is not sufficient to handle 
+
+- so aws will give cpu credits , ec2 will nter into the brustable mode and it give high performance for limited of time only
+
+- "cpu credits" deped on the type of instances
+
+- onlt t2 and t3 tyes supports "brustble prformance"
+
+
+=====================Volumes
+
+- nothing but hard disks
+
+- root volm device name = /dev/sda1
+
+- -------------------------------two types of volumes 
+
+- 1 EBS Volumes 
+
+- persistent storage/ permanent storage
+
+- if u stop and start the ec2 instance DATA is not lost 
+
+- EBS volume max sixex is = 16tb
+
+- EBS is billable 
+
+- if u reboot = data is not lost 
+
+--------Types of EBS Volumes
+
+- General Purpose (gp2,gp3) - SSD = general purpose
+
+- Provisional IOPS (io1, io2) = Highly performance
+
+- Throughtput(st1) - HDD = frequntly access data with cheaper price
+
+- cold(sc1)- HDD = not frequently access data with cheaper price
+
+- Magnetic(standard)-HDD = Previous generation
+
+-- which volume is use when?
+
+- for gneral purpose - gp2,gp3 
+
+-  if u need HP = io1,io2
+
+--- "gp2 is default EBS volume type"
+
+--- IOPS = input and output per second , how mant inputs and outputs u are getting from harddisk
+
+Note : io1,io2 , gp3 are iops configurable 
+
+-- The more iops , the more Bill
+
+-- GP2 has default IOPS = 1:3 =1gb:3IOPS -> it is not IOPS configurable
+
+-- Root volume supports (gp2,gp3,io1,io2 and standard) except sc1 n st1
+
+-- Additional volume supports all types of volumes
+
+
+-- generally u cant attach volume to multiple instace at the same time 
+
+- but io1 , io2 can be multi-attached at the same time in same AZ
+
+-- up to 16 EC2 instance at a time can be attached 
+
+2 Instace store volumes 
+
+- not persistent / Temporry storage
+
+- if u stop and start the e2 instance , data is lost 
+
+- it is fre volumes
+
+- Emphemeral storage -- another name of ISV 
+
+
+NOTE : if u terminate the instance all ur root volumes get terminated by default coz, "delete on termination" is checked/enabled
+
+-  if u want to retain the root volume do uncheck  "delete on termination" while launching te ec2 instance 
+
+- if u terminate ec2 , by default "additional volume will not be deleted coz "DOT" is unchecked/disabled
+
+- based on the size of instance, instance store volume will provided by aws 
+
+-  if u reboot = data is not lost 
+
+-  the reason behind the aws is that 
+
+
+NOTE -- whenever if u store ur data in the EBS(central storage) , here once you do
+
+
+- start and stop = Jump = data is not lost 
+
+- Reboot = no jump = Data is not lost 
+
+- terminate = Data lost 
+
+Explanation : here in the EBS volume it is centraled stored so, when u do start and stop the ec2 istce it will jump from one host machine to another host machine ,due to centrally storage it will get the data volume without any loss
+
+
+--- NOTE : when you store data in the "INSTANCE STORE"
+
+- stop and start = jump = Data is LOSt 
+
+Explanation : when there is instance store , a hard disk is attached by aws to the instance store ,so when there is jump happen here it will jump to another host machine but hard disk will coected to the host machine only , so data is getting lost 
+
+-- Reboot = no jump = Data is not Lost
+
+----------------to know the ec2 is launched properly or not 
+
+- they are 2 types of status checks 
+
+1 instance status check ( hardware check) 
+
+2 system status check (software check) -- ip, network etc.....
+
+-- status checks are done by aws 
+
+NOTE: if u get 1/2 or 0/2 status check are passed , just STOP and START the ec2 instance
+
+or 
+
+ terminate it and launch fresh 
+
+
+-- instance store volume give high performance 
+
+-- EBS volumes are network drives with good but limited performnae
+
+
+
+
+=====================================SNAPSHOTS===============
+
+-- Backup of the volume is called "SNAPSHOTS"
+
+-- Snapshots are incremental backups 
+
+-- u can create volume from the snapshots 
+
+-- snapshot is point in time copy of the volume 
+
+-- snapshots does not contain any A.Z's
+
+-- EBS volumes ---> snpshots --> ebs volums
+
+-- u cant attach snapshot to the ec2,u have to create volume from snapshot
+
+-- u cant login into the snapshot
+
+-- snapshots are stored in S3(provided by AWS)
+
+-- snapshots are regional
+
+-- by default snapshots are PRIVATE , if requri u can make public
+
+-- u can copy the snapshots across the region in the same account , and aws accounts also usng aws id (private )
+
+-- ebs volms cant moved from one AZ to another AZ but u can take snapshots and use in anaother AZ
+
+-- by default volumes, snapshots are not encrypted
+
+-- Decryption is handled by AWS
+
+-- NOT encryptd --> NOT Encrypted
+
+-- encrypted --> encrypted
+
+-- NOT Encrypted --> encrypted(Copy Option in ec2 u can make encryption)
+
+-- all encryption keys are stored in KMS (key mangement service)
+
+-- NOTE:  encryption snapshots cannot be shared to other accounts 
+
+------------ instace store volms are crated from a template stored in S3
+
+-- to create a snapshot u no need to stop the ec2
+
+-- DATA LIFE CYCLE MANAGER : it is used to take snapshots automatically / sechedule
+
+-- these volumes will get identified by using TAGS
+
+-- RETEntion period = 7 days
+
+------------------- EBS snapshot standard and Archive tier 
+
+-- movethe snapshots to Archieve tier i.e 75% cheaper
+
+-- it takes 24 - 72 hrs for restoring from archieve tier
+
+---------------RECYCLE BIN
+
+-- setup rules to retain deleted snpshots so u can recover them after accidental deletion, (retention period 1 day to 1 yr)
+
+------------Fast snapshot Restore(FSR)
+
+-- it is bilable
+
+-- forceful initilization of snaphat to have no latency on the first use
+
+
+===============================IMAGES===================
+
+-- copy of the os is called IMAGE 
+
+-- in AWS AMI = amazon machine images
+
+-- template of os is called "AMI"
+
+-- AMI --> copy of entire ec2 instance(includes volumes)
+
+-- AMI contains OS or OS+apps
+
+-- AMI's stored in aws S3
+
+-- copy of the image includes all configuration that we did original istance
+
+-- 1 AMI, can be used to launch multiple ec2 instane
+
+-- it does not have any AZ
+
+-- by default AMI are private 
+
+-- AMI are regional 
+
+-- AMI can be copied from one region to another region
+
+-- AMI can be shared from one a to another aws account
+
+--------------All public images are located in "market place"
+
+-- GOLDEN AMI : images are created automatically 
+
+-- creating image builder --> through : "ec2 image builder"
+
+-- images are backed by either ebs volumes or ISV 
+
+
+
+IMP NOTE : whenever if u create image(it has 2 volumes by default) , automatically 2 snapshots are generated 
+
+
+-- no need to stop the ec2 to tke snapshot but it is recommended to take snapshot after stop the ec2 
+
+==============================KEY-PAIR=========================
+
+
+
+-- it is used to retrieve the password of the ec2 instance , we do not have any key-pair by default, we have to create it
+
+-- the extention of the key-pair is ".pem"
+
+-- aws has public key and we have .pem private key both called "key-pair"
+
+-- u can attach key-pair to multiple instances but not many instances atthe same time
+
+-- u can create multiple key pairs
+
+-- ec2 instace can have only 1key-pair attached at any point
+
+-- once the .pem file is attached,u cannot change the .pem file to the instace
+
+-- every time u retrive the password of the same ec2 , u wil get same password 
+
+-- keep ur .pem files in secure place
+
+
+
+-- for windows:
+
+- ip: provided by aws
+
+- usename for windows : Administrator
+
+- password : you will get it through key-pair
+
+- to connect windows , u can use RDP protocol rdp/3389
+
+- how to connect? 
+
+ans : remote desktop connection client 
+
+
+
+-- for Linux :
+
+- username for windows : ec2-user
+
+- password : you will get it through key-pair
+
+-to connect linux , u can use RDP protocol ssh/22
+
+- how to connect? 
+
+ans : we use putty or mobaxtrem 
+
+-- putty does not support .pem file , it supports PPK file 
+
+-- puttyGen --> convert pem to PPK
+
+
+
+-- do not share pem files to any one 
+
+
+-to login into ec2 so many people u have instead of giving pem file in aws use "Directory servie"
+
+-- join the all ec2 to the active directory , by this people can login without pasword 
+
+-- keypairs only with admins 
+
+-- thse types are called "domain user" login type 
+
+==============================Cluster network instances=========
+
+-- cluster = grp of servers ---> this group is called Placement group"
+
+-- generally , when u launch a new ec2 , the ec2 service will place the instance such a way that all ur instance are spread out across diferent hardware
+
+-- te speed b/w instaces is 20Gbps
+
+-- we have 3 cluster network instance
+
+1  Cluster Placement Group : 
+
+- grouping the einstance in same rack same AZ, high performnace , low HA
+
+
+
+2  Spread Placement Group : ec2 instance are spread across AZ's, high HA, critical Applications
+
+- per 1 AZ = 7 EC2 instances u can launch 
+
+
+3  Partition Placement roup : 
+
+- Across AZ, Maz partition = 7 
+
+- each partition has 100's of ec2 instances
+
+
+note : placement group recommended to have same homogeneous instance type
+
+- when you are lunching the ec2 , you can select which placement group u want to keep the instance 
+
+
+
+==============================Security Groups========================
+
+-- firewall = security group : which stops unauthorized access to the network
+
+-- allow/deny
+
+-- Sg has 2 types of rules 
+
+1 inbound rules : allows traffic towards ec2
+
+2 outbound rules : which allows the traffic outside ec2
+
+
+-- by default , u dont have any inbound rules , it deny by default, u have give inbound rules
+
+-- by deafult outbound rules are allowed 
+
+-- it is not possible to deny protocol in SG , coz by default inbound rules are deny
+
+-- in SG , we can only ALLOW protocols not DEny
+
+-- every ec2 shouldnhave 1 sg
+
+-- ec2 has a default SG
+
+-- they are 3 types of source to access
+
+1 custom : certain network
+
+2 anywhere : through out the world 
+
+3 MyIp : ur own computer 
+
+
+-- u can attach multiple sg's
+
+-- 1 SG --> attach to multile 
+
+
+IMP : if u allow any protocol in inbound rule , u no need to allow that on outbound rule ----> these is called "STATEFUL"
+
+Eg: SG
+
+- if u allow any protocol in inbound rule , u must allow that on outbound rule  also ----> these is called "STATELESS"
+
+-- Eg: NACL's
+
+
+========================NACL(network Acces control list)=============
+
+-- it is another layer of security to the ec2 
+
+-- if u want tight the security go for NACL
+
+-- like SG , NACL has inbound and outbound rules
+
+
+-- NACL will hit first then SG
+
+-- in VPC they aare multiple Subnets
+
+-- 1 subnet is associated to 1 AZ
+
+-- 1 subnet can't be in multiple AZ at the same time 
+
+-- 1 AZ can have mltiple subnets
+
+-- 1 NACL can have multiple subnets
+
+-- NACL is subnet level and SG is ec2 level 
+
+-- in NACL u can deny but in S.G u cant 
+
+-------------------------------------------SG                   
+
+-- inbound n outbound rules 
+
+- default SG is there 
+
+-- SG will hit after NACL 
+
+-- by default , inbound rules are deny
+
+-- u cant deny on SG
+
+-- SG is Instance lvel
+
+-- if u careate any new sg, inbound rules are deny , outbound rules are allowed 
+
+-- SG are STATEFUL
+
+-- if u allow any inbound rule, u no need to allow on ob rule 
+
+
+
+-------------------------------------NACL
+
+-- inbound n outbound rules 
+
+- default NACL is there 
+
+-- NACL will hit first 
+
+-- by default , inbound rules are allowed
+
+-- u can deny on NACL and allow also
+
+-- NACL is subnet lvel
+
+-- if u create any new NACL, inbound rules,outbound rules are DENY
+
+-- SG are STATELESS
+
+-- if u allow any inbound rule, u need to allow on ob rule also
+
+
+
+===========================AUTO-SCALING===============
+
+-- Scale out and scale in ec2 instance based on demand
+
+-- scale out = adding 
+
+-- scale in = remove
+
+
+-- elb does health checks to the application 
+
+-- Cloudwatch will monitor the ec2 istance
+
+
+-- 3 types of scaling Options:
+
+1  Manual Scaling : manually changed the min,max capacity
+
+
+2 Schedule Scaling : u can schduled the scaling based on the period or a day 
+
+
+3 Dynamic Scaling : based on metrics , cpu > 70% -- based on the load
+
+
+
+--------------------------LAUNCH TEMPLATE/LAUNCH CONFIGURATION
+
+
+-- how does ASG know that scalout ec2 will have appn of urs 
+
+-- u can specify this launch temlte , this is create automatically all things in new ec2 
+
+-- Custom AMI(app) or AWS ami , volumes, SG, 
+
+-- ASG = ELB + EC2 instance + Launch template + SNS
+
+
+
+
+=============================ELASTIC LOAD BALANCER==================
+
+-- http n https 
+
+-- which is used to spread traffic across all the instances
+
+-- elb is maintined by AWS
+
+-- elb is service for us , not a server , u can not login into the elb
+
+-- elb can be access using DNS NAME or URL 
+
+-- health check code is 200
+
+-- elb has a ip addres but this is dynamic not static
+
+-- aws always recommend to use the elb dns not the IP address
+
+------------types of L.B's
+
+1 classic load balancer :
+
+- supports http , https, and TCP
+
+- also know as previous generation
+
+
+2  Appication Load Balancer 
+
+- works on layer 7 
+
+- latest generation
+
+- default choose is ALB
+
+- HTTP and HTTPS
+
+- best for micro-services
+
+
+-- ------------------it has routing features 
+
+
+-- in ALB we r creating rules , we have target groups , so according to the traffic the request will send to different target groups 
+
+
+1  host based Routing : https://subbu.com
+
+2  Path Based Routing  :   https://subbu.com/admin
+
+3  String Parameter Routing :  https://subbu.com/course=aws?
+
+
+note : this is not possible in the CLB , so it is not used now 
+
+
+
+3 Network load balancer 
+
+- u willget fixed ip addres here 
+
+- works on layer 4
+
+- latest generation
+
+- TCP AND UDP, TLS 
+
+- Extremet high performance
+
+- network level 
+
+-  "it provide 1 static ip per AZ"
+
+
+4 Gateway Load Balancer 
+
+- works on layer 3
+
+- deply , manage and scale a fleet of 3rd party network virtual applications in AWS
+
+- f u want to set up any firewall,prevention system etc
+
+- it uses GENEVE protocol on 6081
+
+
+
+==================================TYPES OF IP's=================
+
+1 public IP  : it is not manditory ,this is optional , it is dynamic , it will change when u do startand stop the ec2
+
+
+2 Private IP : by deafult u will get private ip ,when u launch ec2 ,it is manditory 
+
+
+
+3 Elastic IP : the ip wont change when u start n stop the ec2 , it is static ip address
+
+- it is same as public 
+
+- 5 EIP's are free 
+
+- if u not associated with any ec2 instance, aws will do chrge for ideal eip's
+
+
+
+
+-- with in the AWS 2 ec2 wants to talk , the privatae ip is used 
+
+-- instance meta-data = data about ec2 instance 
+
+- from console , u get meta-data from Details section
+
+
+
+-- from CLI , follow this below URL 
+
+- http://169.254.169.254/latest/meta-data/
+
+
+
+-- USer-Data = Bootstrap Scripting 
+
+- the script which u have provided will run at the boot time of the ec2 instances 
+
+
+-- user data will run only for the first time of launching the ec2 
+
+linux = shell script
+
+windows = powershell
+
+
+-------------------------------7 steps to create ec2 
+
+1 select AMI (linux , windows .......) 
+
+2  instance type 
+
+3 instance configuration = how may instance , public ip , user-dta 
+
+4 select storage = ebs ,root volume additional volm
+
+5 Select SG 
+
+6 add Tag 
+
+7 create PEM file and review 
+
+
+
+==================================Global Accelerator(GA)====================================
+
+
+-- managed by AWS 
+
+-- it use aws network , it uses aws edge locations 
+
+-- it has low latency and high performance 
+
+-- if u want to setup with static ip we choose "GA"
+
+-- it provide 2 static ip's
+
+-- it is billable 
+ 
+
+-- unicast ip : one server holds one ip address 
+
+-- Anycast ip : all server holds same ip address and client is routed to the nearest one 
+
+
+
+
+-- eth0 --> private IP
+
+-- eth1 --> public ip
+
+
+
+===============================EC2 console============
+
+-- ec2 global view :u can view resoure globally 
+
+-- events : any maintainenece is there , it will show u in the events sections 
+
+-- launch tmplate : i ASG we use L.T ,it contain configurations 
+
+
+-- capacity reservations : u can reserve the cpacity ,when u need requriment 
+
+- for only reserving u no need to pay until u will use this 
+
+  ==========================EFA === elastic fabric Adapter 
+
+- it is a network device that u can attach to ur instance to reduce latency and increase throughput for distributed high performnace computing(HPC) and ML 
+
+
+-- advanced 
+
+
+-- hibernate mode : to put ec2  in sleep mode 
+
+when to use ? 
+
+- when u have big machines , so much data inside in it , that time u do hibernate it will not charged for hibernate 
+
+
+
+
+-- termination protection 
+
+- enable : u cant terminate 
+
+- disable : u can able to terminate
+ 
+
+-- same stop protection also -- u cant stop the server 
+
+
+-- EBS optimized instance:  whenwver ur data in volumes that will store in central EBS 
+
+- like the same way some ec2 will have optimized with the ebs , and it will give high performance
+
+
+---------Nitro Enclave 
+
+- A Nitro Enclave is a "trusted execution environment (TEE)" in which you can securely process sensitive data. It extends the security and isolation characteristics of the AWS Nitro System and allows you to create isolated compute environments within Amazon EC2 instances. If no value is specified the value of the source template will still be used. If the template value is not specified then the default API value will be used.
+
+- Nitro Enclaves are not compatible with instance types that have less than 2 vCPUs.
+
+- it is chargable
+
+----------------
+
+-- if public ip address changes for ec2 , public dns also will change 
+
+
+----------------------imp points:
+
+
+NOTE : aws use "xen" virtualization
+
+-- instance screen shot : to know it is reboot is done or not 
+
+-- while creating the image(ami) u cant change root volume properties except size of ebs 
+
+-- while creating the image we can also add additional volume 
+
+-- u can also select instance store volume as a additional volume 
+
+-- if u ec2 root volume is not encrypted while creating the image the root volume is also not encrypted
+
+-- while creating the image additional volumes can be encrypted
+
+-- during the image creaton process ec2 create snapshot of each of the above volumes 
+
+-- once u check in AMI , the image is created 
+
+-- u can copy the image and create image across regions 
+
+-- copy AMI provide 2 things ( copy imge to other region and image can be encrypted)
+
+-- deregister = delete
+
+-- by deafult images are private , u can also transfer to anothr account using account id 
+
+-- deprecation = out of date
+
+
+--- recycle bin 
+
+-- u need to create retention rule in recycle bin 
+
+-- R.B can be implemented on snapshots and AMI 
+
+-- not all snapshots and every ami wil not go into recycle bin
+
+-- u can specify whiich one to retention by using tags 
+
+-- if u encrypt snapshot u cant share to others 
+
+
+
+---------- u can create image from the snapshot also which has os
+
+
+
+
+
+======================volumes practicals==========================
+
+--  create 2 nstaces and automatically 2 root volmes will be created 
+
+-- u can deattch root volume only after stop instance 
+
+-- force deattch : this is additional volumes to forcefully deattach 
+
+-- u can increase size of volume without stop the ec2 
+
+-- select volume and go for modify volume and give ur cpaacity as per requriment 
+
+----create lifecycle policy
+
+-- automatically create snapshots and images 
+
+-- Enable cross-Region copy to copy snapshots created by this schedule to up to three additional Regions. if u want only
+
+-- Enable cross-account sharing to share the snapshots created by this schedule with other AWS accounts.
+
+
+NOTE : if u lost PEM files , how to recover password ? 
+
+- crate new pem and instance 
+
+- new instance has root volume 
+
+- now deattach the old root volume and attach to th new instace as  a additional volume now new instance has 2 root volumes 
+
+- go to old root volume and modify one file in d-drive and deattach from new instance and attach to old instance and u can login 
+
+
+---------------EBS practicals with volumes
+
+
+1 Ceate instance -A
+
+2 create one volume and attach to the instace-A
+
+note: it should be in the same A.Z
+
+3 now connect instace-A and try to mount.
+
+4 check if it attached any extra volumes or not by using command lsblk
+
+5 if no volume is attached then , it will looks like
+
+NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+xvda      202:0    0   8G  0 disk 
+├─xvda1   202:1    0   8G  0 part /
+├─xvda127 259:0    0   1M  0 part 
+└─xvda128 259:1    0  10M  0 part /boot/efi
+
+
+6 if any volume is attached , then it looks like
+
+NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+xvda      202:0    0   8G  0 disk 
+├─xvda1   202:1    0   8G  0 part /
+├─xvda127 259:0    0   1M  0 part 
+└─xvda128 259:1    0  10M  0 part /boot/efi
+xvdf      202:80   0   1G  0 disk --------------attached volume
+
+
+7 Now switchto root user ( only root user can able to mount) ---- sudo su
+
+8 now create file direcory by using command
+ 
+   sudo mkfs -t ext4 /dev/xvdf
+
+9 now create a directory to mount the volume  by using command 
+
+ sudo mkdir <<your foldername>>
+
+10 now mount your EBS Volume by suing command
+
+sudo mount /dev/xvdf <<foldername>>
+
+11 now check it is mounted successfully or not by using command  
+
+    lsblk
+
+12 if it is mounted, then it looks like
+
+NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+xvda      202:0    0   8G  0 disk 
+├─xvda1   202:1    0   8G  0 part /
+├─xvda127 259:0    0   1M  0 part 
+└─xvda128 259:1    0  10M  0 part /boot/efi
+xvdf      202:80   0   1G  0 disk /home/ec2-user/MyRules
+
+here MyRules = FolderName
+
+
+13 now switch to mount point directory
+
+cd MyRules
+
+14 create some files in it and save
+
+eg: hello.text and write some txt inside it and save
+
+check to see all the files by usng command ls -ll, it will show you all files that you have created
+
+15 Now detach the volume and create snapshot from it and go to napshot and create one volume on different A.Z from 1st instance and attach this new created volume to the 2nd instanc ( volume and instance should be in same A.Z in EBS)
+
+16 now connect the instace-2 and enter command to check any file system is there or not by using command
+
+sudo file -s /dev/xvdf  
+
+17 once you enter above command you will get like this , if any file system is presnet
+
+/dev/xvdf: Linux rev 1.0 ext4 filesystem data, UUID=ee2699ae-ba2c-4805-941a-f390c4344a37 (needs journal recovery) (extents) (64bit) (large files) (huge files)
+
+18 folow the same steps from  9-13 , and afer enter ls -ll command to see all files
+
+19 once you did successfully mounted then you will able to see the files that you have creted in the 1st instance time.
+
+
+
+===========================LOAD BALANCER=============================
+
+-- LB is regional 
+
+-- in linux all start with /Root
+
+-- u have so many likw /var /etc /usr /home /tmp /bin 
+
+-- when u login in linux ur home diectory is created 
+
+-- /var = all file logs will be there 
+
+-- /tmp = temporary 
+
+-- /bin = all the softwares available 
+
+--/etc = all ur system files will be there 
+
+-- /usr = all things related to user 
+
+
+
+ haredware --> kernal --> shell--> cmd = linux structure 
+
+-- all the shells under /bin
+
+-- bash shell is new one , located in /bin/bash
+
+
+-- when u enter any cmd in linux like touch , ls , it wil go to shell --> kernal --> hardware then get reply to cmd 
+
+-- u cant execute any cmnds without shell script
+
+eg for shell script (user data)
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+
+
+exlanation 
+
+#!/bin/bash  -- shebang 
+yum update -y 
+yum install -y httpd --  --- installing httpd service
+
+systemctl start httpd --start 
+
+systemctl enable httpd -- auto start ttpd service
+
+echo "<h1>Hello World from $(hostname -f)</h1>" > 
+
+/var/www/html/index.html --default directory httpd service will create 
+
+> = redirect , it will create file 
+
+-- whatveer in echo with > symbol will ceate index.html file automatically
+
+-- whatever the data in echo all the datais stored in index.html file 
+
+-- put this script in userdata
+
+
+-- for L.B listeners should be http/80 and https/443
+
+-- the facing should be internet facing = public a
+
+-- internal facing is private and access within the vpc only
+
+-- ACM == amazon certificate manager , where u can buy certificates
+
+
+----------------------
+
+-- create 2 instance with the user data 
+
+-- one instance in 1a AZ and another instance is 1b AZ
+
+-- now go to SG allow http 
+
+-- check th user data is working properly or not by copying public ip of ec2 both and pste in brower u will get o/p 
+
+-- once u check and it is working prprly , u can create LB now 
+
+-- once u create LB , ucan copy  dns and paste in the browser , see hoe taffic is distributed across the multiple instance 
+
+-- if u have heavy applications , make ideal time out more in attributes section 
+
+- all the logs stored in s3 buckets 
+
+-- WAF : Protects your web applications by enabling AWS WAF directly on your load balance
+
+- it is used to secure the web applications ( DDos attacks like hacking ,sql injections or any hacking methods ) 
+
+
+---- ----------------------------------in Target Groups
+
+--  in attributes 
+
+1  Deregistration delay (draining interval) : it means for eg we have 2 instance , if one goes down 2nd will take care , if 2nd also goes down there is downtime so if u donot want downtime we implement ASG 
+
+- during the scaling time (scale in) removing the server1 , some client may be connecte to server 1 so connection wil be there , so ASG wont delete the srver1 immediately 
+
+- so the concept deregister delay means , it wait for 300 seconds , all in-flight(requests which are in progres) request wil get completed after that only it will deregistered from the target group 
+
+
+2  Slow start duration  : when scale out happen , LB has to sent trafffic to new server 
+
+
+3 Load balancing algorithm : round robin method it uses (1,2,3,1,2,3)
+
+- u also have Least outstanding request : this means u have server 1 and server 2 based n the request like if serve 1 getting 5 request and server2 is 20 requests , the nxt request is going to server 1 coz it is getting low requests , it is based on the least getting requests 
+
+
+4 Stickiness : when ever u want to stick with to the specific server 
+
+- if u enable stickness , ur request sent to only one server for the particular period of time 
+
+-------------------------------------- do for /path based routing 
+
+-- create 2 more servers 
+
+-- with admin in the user-data 
+
+-- create 2 ec2 with userdata
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/admin
+
+-- once u created jst copy public ip and paste in browser  "192.87.98.2/admin"
+
+-- now add target groups in LB 
+
+-- once u create TG and attach to LB and create rule 
+
+
+-- go to ELB --> listeners and rules --> edit rules --> add condition(path) /admin --> 
+
+-- u have one option like return fixed response : 
+
+select path rule --> select return fixd response --> enter response code and write ur text 
+
+
+	
+Forward to target group
+
+Admin-tg : 1 (100%)
+Group-level stickiness: Off
+
+
+-- once u created rules here , check in browser by giving /admin 
+
+-- this is called path based routing 
+
+-- limits for ALB 
+
+-  total 100 ules per ALB 
+
+-  5 Conditions values per rule 
+
+-  5 wildcards per rule
+
+-  5 weighted target group pe rule 
+
+
+-- for https we have certificates 
+
+-- go to ACM and c.o request certificate 
+
+-- select request a public certificate -->nxt
+
+-- provide Domain name : eg : *.subbu.com ------ here * means any sub-domain
+
+-- u cna purchase the domain first and then create record
+
+-- then in target groups select https in target groups and add liteners 
+
+
+
+===============================AUTO-SCALING GROUPS========================================
+
+
+-- create a LB empty TG
+
+-- u have to create Launch template (user-data), u can edit LT once u created , u havve create new LT if u want new version of ur appn 
+
+-- c.o on ASG and Give name as you want and select Launch Template(IMP:Make sure AMI Version is with Kernal 5.10.....) ,select the version of template you want
+
+-- using with LT, create ASG 
+
+-- ASG use LT to launch ec2 instance 
+
+-- if u want ur big applicatio like tomact on ec2 instance(ASG), cretae ec2 first ,deploy the appn and create AMI 
+
+-- use this custom AMI in LT instead on Linux and create LT 
+
+-- u provide min , max and desired capacity while creating ASG 
+
+-- ASG will launch ec2 in TG automatically 
+
+-- Always Turn on ALB Health checks 'coz, 
+
+Elastic Load Balancing monitors whether instances are available to handle requests. When it reports an unhealthy instance, EC2 Auto Scaling can replace it on its next periodic check.
+
+-- here we need to use sns ( simle notification servie) 
+
+-- in SNS , we have TOPIC and SUBSCRIPTION 
+
+-- in sns u need to crate TOPIC , once u created u need to subscribe
+
+-- u can add this topic in ASG creation
+
+-- create LB with simple TG no need to add any instances as targets ,this job will do by ASG for us during scale out and scale in process
+
+-- now launch template with user-data
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+-- create auto scaling group 
+
+-- give LT and subnets as u preffered 
+
+-- in notification topic u jst create topic to get notifications 
+
+-- crate ASG 
+
+-- what this ASG will do is that , it wil take LT and it will launch ec2 automatically according to ur desired capacity , so LT has user data so then our ec2 have index.html appn,all the ec2 instances will registered in the target groups automatically  and these TG are linked to Load balancer , so if u can access LB u will get appn 
+
+-- all the things u have do in the launch template only , based on these LT ec2 will created 
+
+-- go n check in target group 
+
+-- in targets all ec2 are gettig registered 
+
+-- There are 3 types f scaling 
+
+1  manual scaling : u can change manually capapcity 
+
+2  schedule Scaling : do schedule when u want to scale out happens when u feel the traffic will more o the certain days or time 
+
+3  dynamic scalng : automatically happens 
+
+
+-- u can check in activity section how scale out and scle in happens 
+
+-- once it reach to max capaicty it wont go more than that as th given capacity , u can edit once if u want more capacity to scale out 
+
+
+
+
+---- there are 3 types of Scaling policies in ASG 
+
+1 Target Tracking POlicy :
+
+When you create a target tracking scaling policy, Amazon EC2 Auto Scaling automatically increases and decreases capacity in response to varying usage levels. For example, a target tracking scaling policy might have a target CPU value of 50 percent. Amazon EC2 Auto Scaling then launches and terminates EC2 instances as required to keep the aggregated CPU usage across all instances in your group at 50 percent.
+
+
+
+2 Dynamic scaling policies : 
+
+
+Amazon EC2 Auto Scaling supports the following types of dynamic scaling policies:
+
+
+A  Target tracking scaling—Increase and decrease the current capacity of the group based on        a Amazon CloudWatch metric and a target value. It works similar to the way that your thermostat maintains the temperature of your home—you select a temperature and the thermostat does the rest.
+
+B  Step scaling—Increase and decrease the current capacity of the group based on a set of scaling adjustments, known as step adjustments, that vary based on the size of the alarm breach.
+
+C  Simple scaling—Increase and decrease the current capacity of the group based on a single scaling adjustment, with a cooldown period between each scaling activity.
+ 
+
+--- How dynamic scaling policies work
+
+A dynamic scaling policy instructs Amazon EC2 Auto Scaling to track a specific CloudWatch metric, and it defines what action to take when the associated CloudWatch alarm is in ALARM. The metrics that are used to invoke the alarm state are an aggregation of metrics coming from all of the instances in the Auto Scaling group. (For example, let's say you have an Auto Scaling group with two instances where one instance is at 60 percent CPU and the other is at 40 percent CPU. On average, they are at 50 percent CPU.) When the policy is in effect, Amazon EC2 Auto Scaling adjusts the group's desired capacity up or down when the threshold of an alarm is breached.
+
+When a dynamic scaling policy is invoked, if the capacity calculation produces a number outside of the minimum and maximum size range of the group, Amazon EC2 Auto Scaling ensures that the new capacity never goes outside of the minimum and maximum size limits. Capacity is measured in one of two ways: using the same units that you chose when you set the desired capacity in terms of instances, or using capacity units (if instance weights are applied).
+
+* Example 1: An Auto Scaling group has a maximum capacity of 3, a current capacity of 2, and a dynamic scaling policy that adds 3 instances. When invoking this policy, Amazon EC2 Auto Scaling adds only 1 instance to the group to prevent the group from exceeding its maximum size.
+
+* Example 2: An Auto Scaling group has a minimum capacity of 2, a current capacity of 3, and a dynamic scaling policy that removes 2 instances. When invoking this policy, Amazon EC2 Auto Scaling removes only 1 instance from the group to prevent the group from becoming less than its minimum size.
+
+
+3  Predictive scaling policies : 
+
+
+Predictive scaling forecasts load based on your Auto Scaling group's history. It scales out the group in advance of forecasted load, so that new instances are ready to serve when the load arrives.
+
+
+Predictive scaling works with CPU utilization, network in/out traffic, the request count to an Application Load Balancer target group, and custom metrics.
+
+You can use predictive scaling to improve availability for applications whose workloads have predictable daily or weekly cycles.
+
+As a best practice, consider using both dynamic scaling and predictive scaling. Predictive scaling uses forecasts to make decisions about when to add capacity according to a metric's historical trends while dynamic scaling makes adjustments in response to real-time changes in a metric's value.
+
+
+
+-- instance Refresh : if u want new version of ur apn , then cretae new LT coz u cant edit old LT so create New LT and attach to ASG 
+
+-- this is how u can do updates in real time in ASG 
+
+Start an instance refresh to perform rolling updates on the Auto Scaling group's instances. Only one instance refresh can be active at a time.
+
+
+-- when ec2 terminating it is showing like "draining" once it finishes all connctions , then only ot will get removed from the TG (it will complete in-flight request and get removed)
+
+---------- scaleout practicals 
+
+-- (IMP:Make sure AMI Version is with Kernal 5.10.....) ,select the version of template you want
+
+-- conect one instace to SSH and install manual load to the EC2 instance by install stress commands manually
+
+--  enter the command
+
+ sudo amazon-linux-extras install epel -y 
+
+-- once avove command is successfully installed , then enter this command
+
+  sudo yum install stress -y
+
+-- once you installed, then try to push the load manually by entering the command
+
+  stress -c 5
+
+--  wait for sometime(4-5 min) to updating the data , then check in ASG and see how the changs are happening
+
+-- u can see the scale out is happening and meet the max capacity 
+
+
+============================CLOUD WATCH=============================
+
+-- CloudWatch is all about Alarms,Events and Logs
+
+--it is regional only 
+
+-- CW is used to monitor performance of all as resource 
+
+-- to monitor the resource , CW need Host level metrics also known as default metrics 
+
+1 CPU 
+
+2 Network 
+
+3 Disk --- volume 
+
+4 Status Check 
+
+-- memory not comes under HLM 
+
+-- memory is custom metrics 
+
+-- 2 types of moitoring 
+
+1 Basic and 2 Detailed Moitoiring 
+
+-- Basic is free nad it will tke every 5 min data
+
+-- deatiled monitoiring : every 1 min data points , billable
+
+
+-- u create alaram in CW 
+
+-- alarms can do actions like (terminate , reboot ,stop , recover ) 
+
+-- Alarm has 3 States : 
+
+1 In Alarm : > 90 
+
+2 OK : < 90
+
+3 Insufficient : ec2 stopped due to some reasons
+
+
+
+-- we also hve concept called " Composite Alarms"
+
+- CW alarms are single metric
+
+- Composite Alarms are monitoring the states of multiple alarms 
+
+ eg: AND or OR conditions 
+
+
+============================EVENTS/Event Bridge=========================
+
+-- where all th events are stored 
+
+-- u can use these events for many use cases 
+
+eg: if u want to get notification once ec2 is stoped 
+
+ec2 --> stopped --> event -->route to the target (SNS(topic))
+
+
+-- u can also do scheduled/Cron Job 
+
+eg: for stopped and started 
+
+ for this we have to create 2 lambda functions one is for stop and another one is for start 
+
+--  NameSpace : group of metrics / collections of related metrics
+
+-- if u want to get all ec2 logs at one place , u have to add CW agent in each ec2
+
+-- all the logs visible in CW logs 
+
+-- by default CW agent not able to push logs to CW logs 
+
+-- by using Roles u can do push the logs to CW LOgs 
+
+---- in CW we have Cannary/cannaries : used to applications monitoring websites endpoints
+
+
+=============Practiclas Alarms Events and lambda ========================
+
+
+-- ----CloudWatch
+
+
+-- crate 2 instances 
+
+-- now these ec2 not in use so ,if u want to stop the ec2 which is not in use ,
+
+-- create alarm first --> c.o + in instances alaram status
+
+-- create alarm as per ur requriments and see how it is stopped the ec2 instance 
+
+-- as of now we have created alarm in ec2 console 
+
+-- we can also create alaram in CloudWatch 
+
+-- go to CloudWatch 
+
+-- c.o create alarm --> select metric --> ec2 --> Per-Instance Metrics-->select ec2 u want copy id --> slect hostlevel metric --> it wil create one namespace like aws/ec2 
+
+-- check how alarm works 
+
+-- IMP : Alarm actions (stop,terminated,reboot) enable and disable at any time 
+
+---------------Events/eventBridge
+
+-- in EB , we can create Rules 
+
+-- u can receive notificatio if someone stop ec2 
+
+-- create rule in event bridge as per ur requrimnts
+
+--------------- automation lambda  
+
+-- if u want to stop ec2 at exact time and start exact time we use lambda for the automation 
+
+
+1 create policy to stop ec2 
+
+2 create role and attach policy 
+
+3 attach this role to lambda -- trusted entity 
+
+4 event schedule 
+
+-- to folow these steps u can stop ec2 
+
+-- lambda with vpc = can acces aws sevices like rds,s3 etc 
+
+-- lambda without vpc = public 
+
+-- now go to iam inline create policy 
+
+{  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Start*",
+        "ec2:Stop*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+
+------ now create a role 
+
+-- select lambda and attach policy that u have created 
+
+----------- now create Lambda function 
+
+- lambda is region only 
+
+- it is serverless
+
+- create functio and attach role to the lambda and write code for stop function in python 
+
+import boto3
+region = 'us-west-1'
+instances = ['i-12345cb6de4f78g9h', 'i-08ce9b2d7eccf6d26']
+ec2 = boto3.client('ec2', region_name=region)
+
+def lambda_handler(event, context):
+    ec2.stop_instances(InstanceIds=instances)
+    print('stopped your instances: ' + str(instances))
+
+
+-- --------create rule in event bridge 
+
+-- create rule with cron job/schedule 
+
+-- create cron job and if u wnt to know it is working or not jst refresh the lambda page u wil get triggers 
+
+-- if u test ur code , if it will get executed successfully , the ec2 instacnes will get into actions(stop,terminated) automtically 
+
+----- Lambda Limits 
+
+- memory allocation = 128MB-10GB
+
+- max Excution time = 900 seconds(15 min) 
+
+- environmenta variable = 4kb in size 
+
+- disk capacity in the function containers (in /tmp) like libraries = 512MB-10GB
+
+- Concurrency execution = 1000(can be increased) , one lambda fun cab be executed 1k times 
+
+-------- deployement 
+
+- lambda function deployement size (compressed .zip) = 50MB
+
+- size of uncompressed deployement = 250MB
+
+- Memory allocation is very imp in lambda functions 
+
+- lambda will be only billed onexeccution times 
+
+
+
+==============================================CLoudWatch LOGS=============
+
+--- u ave to install CW Agent 
+
+-- by deafult CW agent do not have permission to ush logs to cloudwatch logs 
+
+-- so we should create ROLE here , and give CWFULL access policy and this role is attach to the ec2 
+
+1  create IAM ole and give CW permissions 
+
+2  attach The role to the ec2 instance ,make sure ur kernal version is 5.10....
+
+3  login to te ec2 and install CW agent 
+
+4  configure the files 
+
+5  start the CW agent service 
+
+6  see the logs in CW loogs 
+
+-- crtae IAM role 
+
+-- give CLOUDWATCHFILLACES permissions and attach role to the ec2 
+
+-- now loginto the ec2 and enter cmnds 
+
+1 make sure ur kernal version is 5.10....
+
+
+- login as root user like sudo -s
+2 in real time u always do Yum Update 
+
+3 yum install -y awslogs  --- to intall CW logs
+
+4 once  u install cw packages , u have to create 2 files 
+
+- go to cd /etc/awslogs/
+
+- press enter 
+
+- once u do ls , two files will be crated 
+
+-  1  awscli.conf and  2 awslogs.conf
+
+- do sudo cat awscli.conf
+
+- change region as per ur requriemnt
+
+- do cat another file awslogs.conf
+
+- file = var/logs/messages (this is appn log path) 
+
+- log_stream_name = from ehre logs coming 
+
+5 now u have to start awslogs , once u start awslogs automatically the log group generated once u start 
+
+6 start the cloudwaatch Agent service
+
+- systemctl start awslogsd 
+
+- press nter 
+
+7 once u pres nter the backend process will run and all the system logs will push to the CW logs 
+
+8 go n check in log groups 
+
+- /var/log/messages  log group created 
+
+- we have given log_stream as Instance _id open n check the log group 
+
+- once u open instnce id u can check all the system logs 
+
+9  u can also push appn logs to CW agent 
+
+
+- insted of var/log/messages u put log path   
+
+
+
+--- u can do monitor for appliction using canaries 
+
+- application monitoring --> synthesis canaries --> create canary for ur application and check the appn is working or not 
+
+- select heartbeat canary for simple eg
+
+=========================Lightsail================
+
+- everything is availabe here 
+
+- open lightsail
+
+- here if we create instnce it is called "lightsail instances"
+
+- create instance sleect wordpress
+
+- here backup of lightsail instance is called "snapshot" 
+
+- it only give 32GB only 
+
+- once u create lightsail instance copy ip and paste in browser 
+
+
+
+Expore topic : till now we only see Host level metrics , now find how to get metrics for memory 
+
+- By default, we cannot monitor Memory metrics on EC2 Instances.
+
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-scripts-intro.html
+
+- use this link for the documentation 
+
+or u can do in nother process
+
+- create ec2 instance 
+
+- crate one role and attach policies 
+
+-  attach policies cloudwatchfullacces and AmazonSSMFullAccess
+
+-  why SSM? 
+
+ANs: i have to store particular valur(json document which is used to fetch the memory utilixation from aws ec2 and send it to AWS cloudwatch ) in ssm
+
+-  create a parameter in the system manager with the name (u can givve any name) 
+
+eg :  /alarm/AWS-CWAgentLinConfig 
+
+- go system manager -->paramter store --> give name --> in the value place copy json script 
+
+{
+	"metrics": {
+		"append_dimensions": {
+			"InstanceId": "${aws:InstanceId}"
+		},
+		"metrics_collected": {
+			"mem": {
+				"measurement": [
+					"mem_used_percent"
+				],
+				"metrics_collection_interval": 60
+			}
+		}
+	}
+}
+
+
+-- ceate ec2 and attach role to ec2 and create with userdata with cloudwatch agent to install
+
+userdata: 
+
+#!/bin/bash
+wget https://s3.amazonaws.com/amazoncloudwatch-agent/linux/amd64/latest/AmazonCloudWatchAgent.zip
+unzip AmazonCloudWatchAgent.zip
+sudo ./install.sh
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:/alarm/AWS-CWAgentLinConfig -s
+
+
+-- check whether clouwtch agent is instaled or not by using 
+
+-- sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+
+-- if it is running it is success
+
+-- now go to CLoudwatch and --> all metrics --> CW Agent --> give instacne id and chck logs of memory
+
+
+=======================================Elastic Beanstalk==================
+
+-- it is use for easy and wuixk deloyment of appn in aws
+
+-- it is PAAS
+
+-- backbone of beanstalk is EC2
+
+-- beanstalk is free but what veer the resource launchs in backend that will be charged 
+
+-- Beanstalk has deployment Modes (presets)
+
+1 Single Ec2 instance : it will launch only one instcnce but it is not good for production environment 
+
+2 High Availability : here u jst give configuration , automaticaly beanstak will prepare for u , it is preffered for the production environment 
+
+
+Note :there is one more Custoom preset : when u have ur own configuration is called "custom reset"
+
+----------------------Architecture of Elastic Beanstalk
+
+
+--firt thing u have to create is appn 
+
+-- inside appn u have environment 
+
+-- inside the environment u have ur ec2 instance 
+
+-- once u create env-url wil generated 
+
+-- u can also have multiple environments 
+
+-- if one ec2 is there in environment then it is called single deployment PRESET
+
+
+-- if u go for High availablity , then u have ELB, ASG top of it and u can have multple instances 
+
+-- u can acccess using env-URL 
+
+-----------------for eg u have latest verion of ur appn 
+
+
+-- beanstalk has deloyment Method/policy 
+
+1  it has All at Ocne = all instaces go and update at once 
+
+- here there is downtime , no xtra cost 
+
+2 Rolling with additional batches : u wil give batch wise 
+
+- No downtime here , it has  extra cost  
+
+3 Immutable : if u have ASG running , it has 3 ec2 
+
+- if  u g for immutable and ask for deploy new version then it wil create temporary ASG n then new version deployed in Temp ASG once it deployed succesfully then only it will move to original ASG 
+
+
+4 rcently AWS cam with new one called traffic Spliting 
+
+
+
+traffic Spliting  : split traffic b/w ec2 one by one 
+
+
+5 Blue Green deployment : 
+
+- eg if ur changing the complte platform , but deal is customer never face the downtime 
+
+- All the previoud methods touch customer environment whic is not good 
+
+
+- here u will create new environment and deloy new version of appn 
+
+- in Aws it has feature called SWAP URL , once u SWAP ,the customer redirected to new platform 
+
+- the existing one is called BLUE ENVIRONMENT and New one is called GREEN Environment 
+
+- it has extra cost 
+
+
+--------------Practical Elastic bean stalk(blue-green deployment) ----------
+
+
+-- it is regional 
+
+-- it is all about configuration 
+
+-- There’s no additional charge for Elastic Beanstalk. You pay for Amazon Web Services resources that we create to store and run your web application, like Amazon S3 buckets and Amazon EC2 instances.
+
+-- c. o create appn 
+
+-- u have 2 environments here 
+
+
+1 Web server environment: Run a website, web application, or web API that serves HTTP requests.
+
+2 Worker environment : Run a worker application that processes long-running workloads on demand or performs tasks on a schedule.
+
+
+-- choose web server 
+
+-- Environment information 
+
+- name :ELASTICBEANSTALK-tomcat-env
+
+- copy n paste in url(domain) section below 
+
+- crate one role which has ec2full access
+
+
+-- step 3 : do not enable ublic ip for ec2 instances  
+
+
+-- health report - basic 
+
+--once u created ElasticBS succesfully it will crate one ec2 instance, SG, EIP and also instance added to Asg automatically 
+
+-- u can all the events in event section below 
+
+-- once u open domain u will get ur first application in tomacat platform 
+
+-- if error chckc SG configuration or copy public ip and paste in browser 
+
+
+------ now create new environment , ow we are changing platform python in appn 
+
+
+-- same steps jst change platform  
+
+-- once u launc new environment with python , click on domain link now u eill get in green colour for the python 
+
+
+-- now u want ur customers redirected to the new version(python) 
+
+-- do SWAP URL 
+
+-- go to application level --> go inside tomcat server --> swap environment domain --> slect swap platform 
+
+-- once u swap url all the customers will get in the green colour , here there is no downtime , url is not changed 
+
+
+
+-- save ur configuration for the furute purpose if nay one canges ur configuraations 
+
+-- done with Ebeanstalk
+
+
+
+=============SIMple storage service (S3)================================
+
+-- it is object based storage service 
+
+-- in s3 u can store all kind of files 
+
+-- S3 cost is depend on size of the object and data transfer 
+
+-- u can only downloaded, upload and access files from s3
+
+-- u cant instal os,db in s3
+
+-- the files can not executed 
+
+-- s3 is unlimited storage 
+
+-- s3 is cheaper then ec2
+
+-- s3 is serverless
+
+-- s3 is global 
+
+-- bucket = container objects 
+
+-- object = file 
+
+-- key = name of the Object 
+
+-- buckets are regional 
+
+-- bucket name are universal or UNique 
+
+-- all ur buckets shown in same consl only even if u create buckets acrss region 
+
+-- no nested buckets not possible 
+
+-- u can create folders in bucket
+
+-- by default , all buckets are private , if require u cna make public 
+
+-- MAX 100 buckets per account, u can increase by conctact AWS ====imp
+
+-- every file has URL to accesss 
+
+eg : htps://bucket1.s3.ap-south-1.amazonaws.com/photos/puppy.jpg
+
+-- sub-folder are called Prefix 
+
+-- .jpg called suffix 
+
+-- puppy.jpg called object 
+
+-- photos/puppy.jpg === KEY 
+
+-- it is WORM Model == write once read many 
+
+-- ucan not get back once u delete but u can by using versioning 
+
+-- 2 types of buckets
+
+1 General purpose buckets are the original S3 bucket type and are recommended for most use cases and access patterns. General purpose buckets also allow objects that are stored across all storage classes, except S3 Express One Zone.
+
+
+2  Directory buckets use the S3 Express One Zone storage class, which is recommended if your application is performance sensitive and benefits from single-digit millisecond PUT and GET latencies.
+
+-----------------------------------S3 Versioning 
+
+-- when u have critical data it is help to bacjup
+
+-- Versionong is like a backup tool 
+
+-- by deafult versioning is not enabled 
+
+-- this cna be also do while creating bucket 
+
+-- enable on bucket level and applied to objects 
+
+-- Version ID is always Unique 
+
+-- if u delete original ,it will have marker (delete marker) applied to  new version 
+
+-- to restore object , delete the mrker and ur object is restored automatically (latest version) 
+
+-- but if u want to previous version to be restored , u have to download it nd upload it again 
+
+-- it is possible to download version files 
+
+
+-- it is not posible to download delete marker , u can only delete it 
+
+-- delete marker is applied to only latetst version, not for old/previous versions 
+
+-- once u can enable versioning u can't disable it but u can do suspend it 
+
+-- u can not restore the files when u suspend the versioning 
+
+-- when the version is suspended it wont effect on previus objects but coming objects get effected 
+
+
+----IMP POINTS 
+
+-- min object size = 0 bytes , MAx objct size = 5TB
+
+-- y can have unlimited number of objects having 5TB each in a single bucket 
+
+-- if u have file 5TB u can not upload it in one shot , so in aws recommened MPU(multi-part-upload) 
+
+-- this will done through the CLI not from the console 
+
+-- aws recommended , if u have object > 100MB , go for MPU 
+
+
+
+
+==============================Storage classes============================
+
+-- it is manditory to slect storage classes while u uploading the objects in s3 bucket 
+
+
+----------------1 Standared frequently Access(FA) 
+
+- this is usd fofr frequently ccess data 
+
+- it is default Storage Class 
+
+- no retrival charges apply 
+
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 11 9's 
+
+- Min Object size = 0 bytes
+
+---------------- 2 Standared Infrequently Access(IA) 
+
+- this is usd fof  IN-frequently Access data 
+
+- retrival charges apply
+
+- cheaper than FA 
+
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 11 9's 
+
+- Min Object size = 128kB
+
+- Min Duration = 30 days 
+
+
+---------------- 3 Reduce Redundancy Storage(RRS)
+
+- it is Access frequently not accessed data but not critical 
+
+- no retrival charges 
+
+- AWS does not recommend to use this storage class
+
+- cheaper than others 
+
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 99.99%
+
+
+------------------ 4 One Zone IA
+
+- infrequently access data but not critical 
+
+- Retrival Charges Apply 
+
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 11 9's 
+
+- Min Object size = 128KB
+
+- Min Duration = 30 days 
+
+------------------ 5 Intelligent Tier 
+
+-- unknown Access Patterens 
+
+- based on ur access it will shift from one to another classes
+
+- it is only for FA and IA
+
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 11 9's 
+
+- Min Duration = 30 days 
+
+
+---------------------- -----Glacier 
+
+- it is used for in-frequently acces data
+
+- Aarchiving Data
+
+- inside Glacier we create vault 
+
+- Vault : container of Archives 
+
+- Archieve : object/ .zip
+
+Note: Archieve can be upto 40 TB
+
+- unlimited number of archives in 1 vault 
+
+- 1000 vaults
+
+- retrival Charges Apply 
+
+------Glacier has Retrival Options 
+
+1 Expedited : 1 to 5 mins 
+
+2 Standard : 3 to 5 hours 
+
+3 Bulk : 5 to 12 hours 
+
+- Min Duration = 90 days 
+
+
+
+-- we have here concept Availability and Durability 
+
+- Availability :anytime  is 99.99%
+
+- Durability  : long time is 11 9's -- 99.99999999999%
+
+
+--- deep glacier 
+
+- Min Duration = 180days 
+
+
+---------------------------------life cycle management 
+
+NOte : it is possible to move objcts from one storage class to another storage clss automatically by crated Life cycle Rules 
+
+- Life cycle rules can be applied for entire bucket level or for prefix(sub-folder) 
+
+
+-- Life cycle Rules can be created for current versions and previous versions also 
+
+-- In LCM we have Transistion and expiration 
+
+- Transistion : FA --> IA(30 days) --> Glacier(60 dyas) 
+
+here            oth day --> 30th day --> 60th day 
+
+- expiration : Delete after 365 days 
+
+
+--------------------Object Lock 
+
+-- permanent lock and certain period lock 
+
+-- if u want to get logs of ur bucket u have to enable " server Access LOgs"
+
+-- create seperate bucket for logs and all logs will stored here 
+
+-- server access logs are Bucket level 
+
+-- it is very hard to read logs when u have more logs (1000000000's)
+
+
+============================Athena===================
+
+
+-- to avoid above problem we can use "ATHENA" 
+
+-- it analyze the logs directly from S3 
+
+
+
+=================================CORS(cross-origin Resource sharing)============================
+
+
+-- it is small JSON script 
+
+-- when u host static website in s3 and u have index.html website inside u have puppy.jpg stored in bucket 1 
+
+-- now in bucket 2 u put puppy.jpg, now u are caling from the bucket 1 
+
+-- u wont get coz by default u cant share b/w two other buckets 
+
+-- to avoid this we can use CORS 
+
+-- enable CORS in 2nd Bucket 
+
+-- once u eneble cors it will get puppy.jpg
+
+=============================CRR(Cross-Region Replication)============
+
+-- u have ucket in mumbai and u have another bucket in ingapore 
+
+-- whatever the thing in b1 it will get relicate in singapore also 
+
+-- for this u have to create CRR rules in Bucket 1
+
+-- CRR is not enebled by default 
+
+-- it is BUcket-level
+
+-- CRR can be shared to different Accounts possible 
+
+
+============SRR(same region replication) ==================
+
+
+-- if u are replicating same region 
+
+-- it is bucket level 
+
+
+NOTE : versioning is manditory to have CRR/SRR
+
+-- object level logs can be captured in CloudTrail
+
+
+
+---------------------encryption(security)
+
+-- it will be done in 2 ways 
+
+1 in-transist : data is moving by using Https -- for this use ACM
+
+-- ACM : is where u can generate HTTPS certs(in-transit)
+
+2 Data at rest : can be done whle data at rest through KMS 
+
+-- KMS : is where u can cretae Encryption keys for data At rest 
+
+
+
+=====================S3 has 3 types of Encryptions ==================
+
+1 server-side encryption : 
+
+- we have 3 types 
+
+------ A  SSE-S3 (aws Managed Key) -- default common encryption method we use ,
+
+- it is used Algorith called AES-256 (advanced Encryption Standard)
+
+- by deafult , bucket encryption is enabled 
+
+------ B SSE-KMS ( AWS KMS KEY)
+
+------- c SSE-C (Customer provided Keys) 
+
+
+2 Client Side Encryption 
+
+
+3 In-transit Encryption 
+
+
+----------IMP : -------s3 data Consistency Models 
+
+-- Read after write for PUTS of New Objects 
+
+-- eventually Consistency for OVERWRITES of PUTS and DELETES 
+
+
+
+---------==============Pre-signed URL===================== 
+
+if u want to give access for some time only then AWS it has "pre-signed URL" which is like temporary Acess for certain perios of time to the user through a temorary Object URL
+
+
+
+================S3 transfer Acceleration============
+
+-- it is billable 
+
+-- it used CDN network to upload very speed in other regions 
+
+
+=================S3 Requester pays==============
+
+-- in geenral , bucket ownr pay all the S3 storage data trnsfer cost associated to their Bucket
+
+-- with S3 Requester pays buckets , the requester instead of the bucket owner pay the cost of h request and data download from the bucket 
+
+-- helpful if u want to share the large data sets
+
+-- The requester must be authenticated in AWS , so that AWS knows where to charge( in their account), cannot be an0nymous 
+
+
+
+================S3 event notifications ===================
+
+
+-- if someone is trying to adding . doing encryption etc... anything in the s3 u will get notifications 
+
+-- s3 send notifications to SNS 
+
+=================S3 Batch Operations==================
+
+-- if u wnat to perform bulk operations on existing S3 object with a single request 
+
+
+
+===========S3 Access Points======================
+
+-- it simplify scurity management for S3 buckets
+
+
+-- all the people acccesss through the Acces points
+
+-- instead of writing critical bucket policies , u can create access points to each and givw the DNS Names to the users to acces their respective folders in buckets
+
+
+IMP : A.P can be public(internet) or private(VPC) 
+
+
+
+
+================================S3 practicals=============================
+
+
+-- when u do Elastic Bean stalk , one buccket is created automatically delete policy first then delete bucket 
+
+-- create bucket , when bucket is private , object is also private 
+
+-- if u create a public bucket ,object is still private ( u can make public if u want)
+
+-- ad some pictures in bucket 
+
+-- objetc lock can be enabled only at the time of creating bucket only , later u can not do it 
+
+-- copy URI is used in the CLI 
+
+-- Pre-signed URL worked for both private and public Buckets 
+
+-- create one public bucket 
+
+-- upload some images and try to acces u cant coz it is still private only 
+
+-- select files --> actions--> make acl public ,now u will gwt image 
+
+
+
+============S3 versioning practicals =================
+
+
+-- enable versioning for bucket 
+
+-- upload same 2 images again
+
+-- once u toggled show versions options t will show u L with image which means the latest 
+
+-- do delete image 1 
+
+-- now select versions and delete the delete marker u will get back u images 
+
+-- this is how u will get back files if u enebled versioning 
+
+
+-- Bucket Versioning : properties 
+
+-------------IMP : ------------- MFA delete : additional layer of security that requries MFA for changing bucket versioning settings and permaenetly delete object versions . this feature can be enabled CLI only 
+
+
+-- -- in S3 , it is possible suspend the versioning 
+
+-- once u suspend versioning u cant get back  the files once u dlete 
+
+-- even though u can see delete marker options but u can not get back those files once u delete , when u suspend the versioning 
+
+-- existing objects do not have any impact once u suspend the vesioning 
+
+eg: for image 1 u have enebled version previously and nxt suspend versioning once u dleete image 1 u will get back those image co existing files wont get any effect 
+
+
+IMP :  for image 3 nad 4 u did not enable versioning 
+
+-- now do enable versioning , now dlete image 4 and go n check enable versions dlete marker u will get back ur image 4 , coz now versioning is enabled 
+
+-- once the enable is enabled u will get back all files , irresective of uploading time with versioning enable time suspended time 
+
+
+
+
+
+==============Server Access logs======================
+
+-- create seperate buckets for logs 
+
+-- now go to original bucket -> properties--> enabled Server Access logs--> choose log bucket as destination and save changes 
+
+
+
+===============================S3 event notifications=============
+
+-- if something is hapen in S3 u will get notifications 
+
+-- S3 event notification will be sent to 3 destinations 
+
+1 lambda function 
+
+2 SNS topic 
+
+3 SQS Queue 
+
+
+-- select SNS topic 
+
+-- here u will get error like 
+
+  """Unable to validate the following destination configurations""
+
+__-----------------------------Explore topic , solve this 
+
+-- create bucket , go to propeties create new notification choose SNS 
+
+-- open SNS and create topic 
+
+-- edit access policy 
+
+-- Eg
+
+{
+ "Version": "2012-10-17",
+ "Id": "example-ID",
+ "Statement": [
+  {
+   "Sid": "example-statement-ID",
+   "Effect": "Allow",
+   "Principal": {
+     "Service": "s3.amazonaws.com"
+   },
+   "Action": [
+    "SNS:Publish"
+   ],
+   "Resource": "ADD-YOUR-ARN-HERE",  ---- in accespolicy resource paste here
+   "Condition": {
+      "ArnLike": { "aws:SourceArn": "arn:aws:s3:::ADD-YOUR-BUCKET-NAME-HERE" }
+   }
+  }
+ ]
+}
+
+-- replace above policy and save changes 
+
+-- now go to bucket and create event notificatin with SNS topic 
+
+-- now try to uplod files , check u get notifications or not ? 
+
+-- Getting ok.......................
+
+
+====================S3 EventBridge==========================
+
+
+-- by default s3 events stroed in the Event Bridge , u have to enabled explicitly 
+
+
+
+=========== AWS CloudTrail data events ==============
+
+--if u want object level logs u will enebled this 
+
+
+========================how to setup static website on S3===============
+
+-- download some html template from google 
+
+-- now we want our html website on our S3 
+
+-- create one public bucket 
+
+-- upload folder of all html files 
+
+-- make all files public , -->actions --> make public ACL 
+
+-- once u upload , then enable static web site hosting ,in  demo bucket 
+
+-- access ur webite through url 
+
+
+
+============ACCESS POINTS ================
+
+
+-- exploring topic 
+
+
+============================S3 CORS practicals ============================
+
+
+-- create 2 public buckets 
+
+-- create 2 html files 
+
+1 index.html 
+
+2 load.html 
+
+
+1  
+
+<html>
+<head>
+<title>AWS s3 Cors Demo </title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>AWS S3 CORS DEMO</h1>
+<div id="loadDiv"></div>
+</body>
+</html>
+<script type="text/javascript">
+$("#loadDiv").load("load.html");
+</script>
+
+
+2
+
+this is load from same bucket 
+
+
+
+-- upload 2 htm files and make them as public 
+
+-- enable static web hosting 
+
+-- now try to access link u will get o/p 2 lines calling load.html 
+
+-- now create another bucket 2 (public bucket) and upload only load.html 
+
+-- make file public 
+
+-- copy object url of load.html 
+
+
+<html>
+<head>
+<title>AWS S3 CORS DEMO </title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>AWS S3 CORS DEMO</h1>
+<div id="loadDiv"></div>
+</body>
+</html>
+<script type="text/javascript">
+$("#loadDiv").load("https://cors-dem2.s3.ap-south-1.amazonaws.com/load.html");
+</script>
+
+-- now upload back index.html(updated) to s3 again and make public in bucket 1
+
+-- make them public 
+
+-- now do refresh the link in browser  
+
+-- u can not able to see load.html content in the browser coz u are calling from the otehr bucket and u did not enable CORS so u are not getting content 
+
+-- now go and create CORS in Bucket2 
+
+-- open 2 bkt --> permissions --> c.o learn more --> copy snippet from document in google 
+
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    },
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "http://www.example2.com"
+        ],
+        "ExposeHeaders": []
+    },
+    {
+        "AllowedHeaders": [],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+
+
+-- now do refrsh the link u will get content of load.html 
+
+
+
+
+---------storage class Analysis
+
+-- Analyze storage access patterns to help you decide when to transition objects to the appropriate storage class.
+
+
+-------------------- Life Cycle Configuration
+
+-- create lifecycle rules acording to your requriment 
+
+-- u can disable rules any time 
+
+
+----------------------- ----Relication Rules 
+
+-- one bucket files in bk1 , this files replicate to bkt 2
+
+-- go to management 
+
+-- enable versioning is maditory 
+
+--public or private it is does not matter 
+
+-- create 2 buckets in two different regions 
+
+-- go to bkt 1 n create relication rules slect destination path 
+
+-- ask aws to create new IAM role
+
+-- now upload some file sin bkt 1 n do refresh in blt 2 u will get same files in bkt 2 
+
+
+-------------------------S3 inventory Configuration
+
+-- create I.C 
+
+-- once u create , it will create one report 
+
+
+
+------------NOte 
+
+-- s3 bowser download and do ur s3 actions withot go to console every time 
+
+
+
+
+
+=================================EFS Practicals ================================
+
+
+-- create EFS 
+
+-- throughput : speed b/w ec2 and EFS 
+
+-- EFS is regional 
+
+-- Replicatio is posssible in EFS , cost calulated how much data is transferred 
+
+-- launch 1 ec2 instances 
+
+-- in S.G add NFS inbound rule 
+
+-- connect instance 1 and follow some commands 
+
+1  sudo -s 
+
+2  yum install -y nfs-utils
+
+3   mkdir efs  --- create one folder 
+
+4   now do mount with folder 
+
+
+mount -t nfs4 fs-0c90179e0f0b6c46b.efs.ap-south-1.amazonaws.com:/ efs/
+
+
+explanation :   fs-0c90179e0f0b6c46b.efs.ap-south-1.amazonaws.com  -- u wil get from efs dns name    and efs is folder name 
+
+-- cd efs 
+
+-- now create some files here 
+
+
+---- now create 2nd indtance in diff A.Z 
+
+-- follow the same steps 
+
+-- once u do ls u will get same filesin diff A.Z zone instances also 
+
+-- create one file new in ec2 1 and check in 2nd ec2 u will get that file 
+
+-- same for deletion also 
+
+-- this is how u do with Efs amd u can also do repliction EFS 
+
+
+
+=====================================CLI Practicals=========================
+
+-- wherever u want to access AWS , u have to istall AWS CLI 
+
+-- for windows u need to downlaod --> AWSCLI.msi
+
+-- forlinux u have to use Linux cmnds 
+
+-- configuring KEYS o the insatnce is not recommmended 
+
+-- so launch another ec2 launch aws cli and create Role and give permission 
+
+-- how to acces key? --- Aws configure 
+
+-- o//p : 3 ways table or json or xml 
+
+-- keys are stored in cd~/.aws 
+
+------------praticals
+
+-- launch instance and SSH in S.G 
+
+-- connect instance , follow cmnds 
+
+
+-- sudo -s 
+
+--curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+-- unzip awscliv2.zip
+-- sudo ./aws/install
+
+
+
+-- now configure keys
+
+-- aws configure 
+
+-- give keys and region and select table format as o/p 
+
+-- if u want to know where keys stored do 
+
+cd ~/.aws
+
+ls
+
+cat crendentials 
+
+-- u will get ur keys 
+
+-- this is not good to store 
+
+-- try some sample cmnds 
+
+Eg : 
+
+aws ec2 run-instances --image-id ami-0a0f1259dd1c90938 --count 1 --instance-type t2.micro --key-name terraform-key --security-group-ids sg-09756757ec04083da --subnet-id subnet-02c844dbf0a247651
+
+
+-- as u give op as table mode u will get o/p in table formate 
+
+-- ec2 is created 
+
+-- like this u can do start stop and so many things u want 
+
+-- NOTE : if u want to get data from the resource 
+
+-- type TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+
+u will get these many options 
+
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+identity-credentials/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+managed-ssh-keys/
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/
+
+
+-- if u want to get any one of these data u can add last of cmnd for eg local-ipv4
+
+-- TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4
+
+
+-- now create s3 through console 
+
+-- aws s3 mb s3://6pm-test-demo/ --region ap-south-1
+
+-- check in console u can able to see buckets 
+
+-- aws s3 rb s3://6pm-test-demo/ --force  == to remove bucket 
+
+-- it is not recommended to do this way coz keys are stored in ec2 itself so u can not do this way 
+
+-- so create role and give permissions and run ur cmnds without keys 
+
+
+
+
+================================AWS Transfer Family=========================
+
+-- Fully managed Service for file transer securely 
+
+-- Suport SFTP,FTP,FTPS(FTP over SSL) 
+
+-- data can be transferred in and out of s3 buckets and EFS 
+
+-- 
+genlly we are uploaing our files in S3 through the console  but we are doing through the http , 
+
+-- now w r going to transfer files securely from ur laptop 
+
+-- for this we have to install software called "FileZilla" which is used to transfer fis very securley 
+
+-- b/w ur laptop and s3 or EFS we have to create One "Transfer Server" , this server allows us to do  SFTP,FTP,FTPS, we can choose any one , and we hav to create one user in Transfer server 
+
+-- in FileZilla u can login as with user name 
+
+-- once u create server it will give u endpoint 
+
+------------------practical
+
+-- create public bucket 
+
+-- create one bucket policy through policy generator 
+
+eg :   
+
+{
+  "Id": "Policy1704630072890",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1704629976563",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::transfer-dem",
+                       "arn:aws:s3:::transfer-dem/*" ],
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": "49.205.119.80/32"
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}
+
+
+
+-- now create transfer server 
+
+-- open aws transfer family in console 
+
+-- create server , selete SFTP --> Srvice managed --> select as per ur requriemnets 
+
+--now add user in server 
+
+-- select server c.o add user --> create one role in IAM --> truste entity = ec2 --> use case = Transfer (imp) --> give s3 full access --> create role 
+
+-- go to puttyGen n create SSH keys(mouseover)  and save private key with .ppk 
+
+-- now download Filezilla 
+
+-- open filezilla --File(top) --> site manager --> new site --> copy end point of server --> selet SFTP n paste endpoint of server and give port number as 22--> logon type : key file --> give ur private file u downoaded -- connect 
+
+
+-- once u coonect u jst drag do upload ur files u want and go check in s3 in console --- getting files 
+
+-- this is how u can transfer files throug SFTP from ur lap to s3 or EFS 
+
+
+
+===========================AWS - Storage Gateway Service==========================
+
+
+-- it combination of on-premises and AWS Storage , so it is called " Hybrid Storage"
+
+-- it is used to transfer the data from on-premises to AWS vice versa (S3, EBS,Glacier and FSx) 
+
+-- ur lap is also called on-premises 
+
+-- it is not possible to mount storage service(s3,efs,glacier,FSx) to ur on-premises but by use of storage gateway u can do this 
+
+-- there are 4 types of Storage gateways 
+
+
+1 if u want to use "s3" create "file gateway"
+
+
+imp : File Gateway supports "NFS" for LINUX and for WINDOWS it use "SMB"(server message Block)
+
+
+
+2 if u want to create "EBS" create "volume gateway" 
+
+Imp : volume gateway we ahve 2 types 
+
+1 cached volume : to increase the performance ,it uses protocal "iSCSi"
+
+2 Stored Volume :
+
+
+3 if u want to create "Glacier" create "tape gateway"
+
+-- no need to maintain physical tape 
+
+-- AWS provide VTL(virtual tape library) to take backups , it uses protocal "iSCSi"
+
+
+
+4 if u want to create "FSx" create "FSx gateway" 
+
+
+
+--------------------prac
+
+-- we do not have on-premises ,so consider ur lap as on-premises and VM as Ec2 and install Storage gateway appliance(agent) on on-premises
+
+-- this is chargable 
+
+-- go to soage gateway and create s3 file gateway 
+
+-- Platform options = ec2 
+
+-- customize ur settings 
+
+-- c.o launch instance , automatically AMI is take here 
+
+-- select Instance type is = m5.xlarge
+
+-- add additional volume of 150 GiB of gp2 
+
+-- c.o checkbox and nxt 
+
+-- copy IP of instance and give in nxt step as a connection 
+
+-- now on-premises and file gate way now connected 
+
+-- activate and configure 
+
+-- now ceate s3 private bucket 
+
+-- now file share we have to create , if u open gateway u willhave options like what to creat now we have files so create file share 
+
+-- all the data come to the file share and this data stored in AWS S3 
+
+-- c.o customize configuration , in step 3 u can give accesss client to all (0.0.0.0/0)
+
+-- open file share u will find "mount point"
+
+-- launch t2.micro instance for testing 
+
+-- connect nstance 
+
+-- sudo -s 
+
+-- yum install -y nfs-utils
+
+-- mkdir filesystem
+
+-- go to file share and copy mount point for linux 
+
+-- mount -t nfs -o nolock,hard 172.31.1.243:/store-gate [MountPath]/
+
+-- cd foledername
+
+-- now indirectly iam in S3 only if i put any data and stored this data in S3 
+
+-- do df -h n see s3 bucket is there so u r doing mount 
+
+-- create some files 
+
+-- check in S3 ur file will store in S3 automatically 
+
+-- the file u created all go through Storage gateway appliance(agent) --> storefile gateway--> S3 
+
+
+-- delete all resource 
+
+-- delete additional volume also it has 150 GIB 
+
+
+
+
+
+=======================================RDS==============================
+
+-- RDS is REgional 
+
+-- in RDS we called RDS DB instance 
+
+-- it has Endpoint 
+
+-- It is "PAAS", u can not login but u can connect 
+
+-- it hs 2 topics mainly 
+
+1 Read Replicas 
+
+2 Multi AZ
+
+
+-- AWS RDS has 6 Engines 
+
+-- generally , how u connect to data base?
+
+we need Hostname /endpont 
+
+- usrname 
+
+- passwd
+
+- port number 
+
+-- ndise db engine(whole database) we can multiple db's 
+
+-- now , there are some aplications only for the read-base purpose , so so many aplin are connected to the engine it will get overload 
+
+-- so do create seperate Read Replica , it will us for only Reading -purpose 
+
+-- so all read applins are getting conected to this read -replicas and fetch the data from the replica 
+
+-- we have main server( Master), generaly it has a role , if it does not have read replicas then it is only "instance" , if u create Read replicas from the master then it will beome "primary"
+
+-- read replicas are connected through Endpoints 
+
+-- Read replicas can be in multiple Regions 
+
+-- all the rights will be done in Master server only 
+
+-- when some one writing in the main server ,paralley it does not update in the read replicas so it is called " Asynchrous"
+
+-- RR is used for Increase the performance 
+
+-- but it is not for High availability 
+
+-- Max 5 Read Replicas 
+
+-- ReadReplicas have their own endpoints 
+
+-- endponts are provided by the AWS 
+
+-- u can promote RR to Nrml stand alone DB machines, if u create RR from this it will become Primary 
+
+- u can enable M-AZ for RR also . charges are double 
+
+-----------------------MUlTI_AZ / Cluster 
+
+-- Mutli AZ is used for the High availability 
+
+-- if u enable M-AZ , one more DB instance crated , we can not see that instance , it is handled by the AWS 
+
+-- it is "SYNCHRONOUS" 
+
+-- u need to pay Double amount when u have enabled Multi-AZ 
+
+-- if something happens to ur main DB server , the failover happens here , the requests will send to backend server 
+
+-- endpoint won't change even in failover time 
+
+-- DB operations will not have failover(for eg :some one delete table it wont get failover , tese are responsible by us )  , anything realted to network, servers etc will have fail over 
+
+
+-- RDS DB instances can be reserved 
+
+---------------RDS Features 
+
+-- backups are called Snapshots 
+
+-- if u want to take backup of whole Engine it is called "Snapshot" 
+
+-- Snapshots  will takek 2 types 
+
+1 manully 
+
+2 Automatic(schedule)
+
+-- if u want to take only one data base inside engine u have to do manualy write scrits and AWS do not have service for the DB level Operations backups 
+
+-- DB level Operations (tables,SP,DB-level backups, Scripts, Fns,Security etc) are handled by Customer 
+
+-- dB instance Level (instance Backup(Snashots), configurations, restorations , capacity etc)
+
+-- Operations is handled by AWS/Platform is handled by AWS 
+
+-- u can also do Encryption
+
+-- we have storage/ volumes --> gp2,io1
+
+- instance type --> Db insatcne type --> t2.micro 
+
+-- SG/VPC/subnet
+
+-- performace insights (Dashboard)
+
+-- backup retention period = Max 35days , default 7 days ( Automatic) 
+
+-- No retention priod for Manual Backups, u need to delete it manually 
+
+-- Snapshots can be exported to S3/ restore it from S3 Also 
+
+-- Snapshots can be copied from from one region to another region 
+
+-- shared from one accnt to another accnt 
+
+-- U can do Scale up DB instance but not on FLY mode ( we need to stop the DB instance, Downtime is Requried) 
+
+-- we have ASG on "storage Level"  min 100GB n max 1000GB
+
+
+-- AWS proporetary Engine is "AURORA" , own product 
+
+-- is is compatible with MySQL and POSTGRES
+
+-- It is serverless/server base based 
+
+-- it is high chargable 
+
+1 aurora 
+
+Aurora MySQL is Amazon’s enterprise-class MySQL-compatible database.
+
+Aurora MySQL offers:
+
+Up to five times the throughput of MySQL Community Edition
+
+Up to 128 TB of autoscaling SSD storage
+
+Six-way replication across three Availability Zones
+
+Up to 15 read replicas with replica lag under 10-ms
+
+Automatic monitoring with failover
+
+2 Postgres
+
+Aurora PostgreSQL is Amazon’s enterprise-class PostgreSQL-compatible database.
+
+Aurora PostgreSQL offers:
+
+Up to three times the throughput of PostgreSQL
+
+Up to 128 TB of autoscaling SSD storage
+
+Six-way replication across three Availability Zones
+
+Up to 15 read replicas with replica lag under 10-ms
+
+Automatic monitoring with failover
+
+
+
+
+
+------------------------------AWS RDS PROXY
+
+-- it is fully managed data base proxy for RDS by the AWS 
+
+-- it is chargable 
+
+-- allows apps to pool and share the DB connections established with the data base 
+
+-- Improving database effiency by rducing the stress on the data base resource(Eg CPU, RAM ) and Minimize open connections(and timeouts)
+
+-- Serverles,AutoSclaing, HA
+
+-- Support MYSQL, POstgres, MariaDB, MSQL and AURORA 
+
+-- Secret Mangaer is a AWS Service ehre u can store all Scrects(keys, usernames,passwords etc) 
+
+-- RDS Supports SSM to get credntaials 
+
+-- RDS proxy is "never publicly accessible (must be accessed from VPC) "
+
+
+Summary: RDS proxy will allow ur appns to ool and share the DB connections established with the Db instead of having every single app connect to rds instace they wil be instead connecting to te proxy and proxy will pool these connctions together into less connections to the RdS DB instance 
+
+
+-- Everything should be inside the VPC 
+
+
+=================================RDS PRAC========================================
+
+
+-- create Db with free tier configuration , MYsql without backups 
+
+-- create repelica option grey out coz
+
+Backups for your instance are currently disabled (retention = 0). Please enable backups before attempting to create a read replica.
+
+-- by deafult the role of data base is Insatnce 
+
+-- if u want to edit anything --> go to modify n do changes u want
+
+-- read replica is only read purpose 
+
+-- u can promote to stand alone  
+
+-- once u create snapshots from data base engine , from snapshot u wl create new engine but u can not give same name for db engine 
+
+-- for eg if someone delete table u can get restore from the napshot but the whole engine u should do backup coz db operations are resonsile by us not AWS 
+
+-- go to SG default and add ur engine port number , mine is MYsQL 3306 
+
+-- copy endpoint of RDS 
+
+-- open mysql workbnch and try to connect 
+
+NOte: if u are using company wifi or some private internet , try to connect to ur mobile hotsopt u will get connect 
+
+-- u can also cange verison of snapshot engine with jst one click 
+
+ NOte : when u want to restore from the S3 ur engines u can get only 2 engines 
+
+AUrora and MYSql 
+
+
+====================================ELASTIC CACHE=======================
+
+-- it is developer resource mainly
+
+-- it is regional 
+
+-- it is also data base only 
+
+-- In-memory data base caching Service 
+
+-- Cache : all frquently accessed data is stored at this place 
+
+-- it is used for Read Purpose 
+
+-- it can handled Session data(cookies) 
+
+-- it supports Encryption ( IN-TRANSIT and DATA at rest) 
+
+
+-- it supports two Engines 
+
+1 Redis : permannent
+
+- it supports HA, failover and backups
+
+- Data is Persistent 
+
+
+2 MemcacheD --temporary 
+
+- it not supports HA, failover and backups
+
+- Data not Persistent 
+
+
+
+-- if the application hit cache it wil give data without going to RDS 
+
+-- if Cache is not have data , appn go to RDS and get data whatever the data get from the RDS the application writes in the Cache coz it is missed data , so nxt tym if u search for same data it will get from cache not from RDS (this will do developer) 
+
+-- it use to improv the performance 
+
+-------------------------------Developer Strategies
+
+-- they are 2 type sof stragies
+
+1  Lazy Loading : load the data , when it is necessary 
+
+if Cache is not have data , appn go to RDS and get data whatever the data get from the RDS the application writes in the Cache coz it is missed data , so nxt tym if u search for same data it will get from cache not from RDS
+
+
+2 Write Through : write parallelly both data basess (DB and Cache) , in this 100% similar data on Both RDS and Elastic cache 
+
+
+--------------------------------------REDIS
+
+-- it hs 2 types of modes 
+
+-- it is like NoSQL database 
+
+1  Cluster Mode Enabled  
+
+-- Cluster = Collection of Shards
+
+-- Shard = Cllection of Nodes/Server
+
+-- Each Shard has 6 nodes = 1 Primary Node , 5 Replica Node
+
+-- u can have 500 Shards per cluster 
+
+
+2  Cluster Mode disabled
+
+-- it has ony one shard = 1 primary and 5 replias 
+
+-- 
+
+
+
+
+-------- imp : Service Quotas ia AWS service where u can find the soft limit of the AWS Resource 
+
+-- if requrd u can increase the soft limit 
+
+
+
+
+
+=================================AWS DynamoDB===================================
+
+------------------------------Basics OF Dynamodb 
+
+- stored on SSD Storage 
+
+- sread across 3 geographically distinct data centers
+
+- eventuall consistent Reads(default) --- ECR 
+
+- Strongly Consistent Reads ---- SCR 
+
+
+
+
+
+-- this is purely developer service 
+
+-- DdB offers "push button" scaling , meaning that u can scale ur database on the fly, without any downtime 
+
+-- it is serverless 
+
+-- Table is collection of Attributes(Coloumns) and Items(Rows) in Amazon dynamo db 
+
+-- Primary Key is always unique and not null 
+
+-- in  Dynamodb Primary Key is called "partition Key"
+
+-- in Ddb , initially u can create a table with single coloumn and tht should be Primary key 
+
+-- in Ddb , p.k is manditory while creating a table 
+
+-- Composite Key = Primary Key + Sort Key 
+
+-- Sort Key is optional 
+
+-- if u have a primary key for a single coloumn = Duplicate values are not allowed 
+
+-- if u have p.k + sk = duplicate values are allowed 
+
+-- Ddb data stroed in JSON format
+
+
+
+
+
+----- "Dynamo Db Streams" = what ever the item level changes wil be captured 
+
+
+
+
+----------------Indexs
+
+-- thse indexes ae writes by developers 
+
+-- 2 types of Indexes
+
+1 LSI(ocal secondary index) = partition key + Any Coloumn as Sk
+
+2 GSI (gobal secondary index) = Any coloumn as pk + any coloumn as SK 
+
+Note : -- lsi can be created only at the time of creating the DynamoDb table, later u cannot Modify/delete the LSI 
+
+-- GSI can be Created, modified, delete any time 
+
+
+
+
+------------- provisioned Capacity Units 
+
+-- 2 types 
+
+1 RCU ( read capacity units) 
+
+2 WCU (Write Capacity Units )
+
+-- Ddb performance depend upon RCU and WCU 
+
+-- 1 RCU = 5.2 Million Reads it will do 
+
+-- 1 WCU = 2.5 million Writes 
+
+
+
+-- by default DDb giving 5 RCU and 5 WCU 
+
+-- For ECR , 1 RCU = 2 Reads per second of 4KB size
+
+-- For SCR, 1RCU = 1 read per second of 4KB Size 
+
+-- 1 WCU = 1 write per second of 1KB Size 
+
+
+
+
+SQL VS NOSQL 
+
+
+SQL :
+
+-- it is generally used in RDBMS 
+
+-- structures data can be stored in tables 
+
+-- The Schemas Are Static 
+
+-- schemas are rigid and bound to relationships 
+
+-- Helpful to design complex queries 
+
+-- here we call tables , rows and coloumns 
+
+-- eg : Mysql,oracle,sqlite,Postgres and MS_SQL 
+
+-- it has different types 
+
+Relational and Analytical(OLAP) 
+
+
+NOSQL :
+
+-- it is generally used in NON-RDBMS 
+
+-- Using JSON data, unstructures data can be stored 
+
+-- The Schemas Are dynamic
+
+-- schemas are no-rigid , they are flexible 
+
+-- no interface to prepare complex queries 
+
+-- here we call collections, collections has Documents 
+
+- Eg : MongoDB, BigTable, Redis, RavenDB, Cassandra, Hbase, Neo4j and couchDB 
+
+--it has diff types 
+
+Coloumn-Family , Graph , Document and Key-value 
+
+------------------
+
+-- our "DynamoDB supports "Document and key-value(JSON) pair" 
+
+
+---------------Provision Capcity examples 
+
+
+-------------------------------Example For RCU 
+
+eg : if u have a table and u want to read 100 items per second with Strongly Consistent Reads(SCR) and ur items are 8KB in Size, u would calculate the required provisioned capacity as follows ,
+
+-- we kanow the basic of 
+
+
+
+-- For ECR , 1 RCU = 2 Reads per second of 4KB size
+
+-- For SCR, 1RCU = 1 read per second of 4KB Size 
+
+-- 1 WCU = 1 write per second of 1KB Size 
+
+-- to solve this 
+
+Sol : here it is asking 8KB size , what is our size? for SCR is 1RCU = 1 read per second of 4KB Size 
+
+
+so 8KB/4KB = 2 capacity units 
+
+in the question it is asking foor 100 items per second to read , so 
+
+2 read capacity units per item * 100 reads per second = 200 / 1 = 200 read capacity units 
+
+NOte : if it is ECR then 200 / 2 = 100 Read cpacity units 
+
+
+----------------------Examle for WCU 
+
+
+-- if u have a table and u want to write 50 items per second and ur items are 4KB in size , u wuld calculate the required provisioned caapcity as folows 
+
+
+sol : 4 KB / 1KB  = 4 WCU 
+
+     4 WCU * 50 Units per second = 200/1 = 200 write units 
+
+
+
+
+
+-------------- for eg u have question like 
+
+Q : 10 Strongly Consistent Reads per seconds of 6 KB each 
+
+sol: here we do not have 6 we have only 4 and 8 KB so,go for near (only up) so 8KB 
+
+
+ans : 20 RCU 
+
+
+
+--------------Dynamo db table prac
+
+
+-- Ddb n cnsole create table 
+
+-- customize settings -> Ddb std
+
+-- provisionsed
+
+
+
+--- Global table : used to replicate ur db 
+
+note : To create a replica, you must set your table's and index's throughput capacity to auto scaling, or change the capacity mode to on-demand.
+
+
+-- DynamoDB stream details = Capture item-level changes in your table, and push the changes to a DynamoDB stream. You then can access the change information through the DynamoDB Streams API.
+
+
+-- with the use of sort key , u can do reuse primary key ( name) multiples times but u can not do use same sort key values
+
+
+
+
+==============================CLOUD-FRONT=================================================
+
+
+-- it is global servie 
+
+--  here u have s3 bucket which have static website in it 
+
+-- if ur user in U.S , the user connect to our website through edge Location not directly to our website , if he cnnect direct from our region the latency will be high 
+
+-- we need to setup CloudFront it create distributions and origin is =S3 bucket 
+
+-- rom edge Location to website the data is stored through the CDN , it is usper speed managed by the AWS Network
+
+-- once u create CF , it give nasty URL 
+
+
+-------------------Prac 
+
+-- open S3 and crate private Bucket 
+
+-- as u cate private bucket , no one can access ur url through the S3 
+
+-- Only access through by Cloud-Front directly coz, it is privtae bucket and we did not enable Static hosting also 
+
+-- go to CF in console 
+
+-- create ditrubtion on CF 
+
+-- Origina Domain = load balancer / S3 -- these are the places wher u can host ur applications 
+
+-- OAC --> Create control settings --> do nt change any n create 
+
+-- it is created access from S3 
+
+-- Compress objects automatically : CloudFront can automatically compress certain files that it receives from the origin before delivering them to the viewer. CloudFront compresses files only when the viewer supports it, as specified in the Accept-Encoding header in the viewer request.
+
+
+-- Default root object - optional = index.html 
+
+
+----- once u crate distrubtion , the S3 bucket policy wil gwt generated copy that policy and paste in bucket policy 
+
+-- now ur appn is getting deployed all over the world 
+
+-- through the CF url cutomers wil able to cnnect ur webiste through the edge locations 
+
+-- onc eu change the content of ur website and do ulod again n if u do refresh u wont get new content 
+
+-- u have too do "invalidate the Cache" 
+
+-- go o CF and create invalidation for /index.html , it will get latest file from the S3 and give latest content to customers 
+
+-- By default, CloudFront caches files in edge locations for 24 hours. 
+
+
+
+
+==============================Route 53===================================
+
+-- it is global service 
+
+-- it is DNS(DOMAIN NAME SERVICE)  Service in AWS
+
+-- it keeps track of all hostnames and IP's
+
+-- it converts IP to Host and Host IP to IP  
+
+-- normally ur beowser requires 2 things 
+
+1 Host name 
+
+2 IP 
+
+-- the request wil go to LOcal DNS --> Root Name Server -->> Top level domain --> Name server--> SOA 
+
+-- we only have to take care about server--> SOA  only this is configure in R53 
+
+
+-----------------------R53 Features
+
+-- Domian registration 
+
+-- DNS routing 
+
+-- Health checks
+
+-- Routng policies 
+
+
+
+-- in R53 , we should create "Hosted Zones"(container of Recoreds) first 
+
+-- Hosted Zone (Domain name = subbu.com ) are same 
+
+-- 2 types of H.Z 
+
+public 
+
+private 
+
+-- subbu.com -> elb gives nsty url --> ec2(it has appn)
+
+-- whenever u type subbu.com in browser -> R53--> Hoste Zone --> ELB-->Nasty Url--> Ec2 Instance 
+
+
+--- whenevr u creat "Public Hosted Zone " 2 records will create automatically 
+
+1 NS(Name Server) Record = Pool of servers ( ~ it give 4 Servers) ,it identifies the server(website) 
+
+2 SOA Record : Admin for Hosted Zones ( it has IP address) 
+
+
+-- NS and SOA are default records , automatically created and managed by AWS 
+
+-- u can purchase domains in 2 ways 
+
+1 R53 
+
+2  3rd party (go daddy) 
+
+
+-- if u purchase in R53 ,it wil create hoste zones automaticlaly and  NS and SOA records created automatically 
+
+
+-- whenever u purchase domain 3rd party domain registery , u should connect t AWS ,'coz ur request is here going to GO-daddy so u should connct to AWS 
+
+-- HOW to conect ? 
+
+
+-- once u create hosted zones in R53 ,the NS records wil crated (4 servers) , these servers u should updated in th Go-daddy , once u updated requests are redirected to AWS 
+
+
+-- it has some latency 
+
+
+-- NS and SOA records cannot be deleted 
+
+
+
+---------------------------Route53 Records--
+
+
+-- we have A Record , AAAA Record , Cname recor , Alias Record  , MX Record 
+
+-- Most common use is A record + Alias Record 
+
+1 A Record : URL to IPv4
+
+
+http://subbbu.com -- > it reach R53--> Hosted zone (subbu.com) --> records it contains subbu.com --> Ec2 instance IP 
+
+
+URL --> ipv4
+
+
+2  AAAA Reacord : URL to IPv6
+
+
+3 Alias Record : URL to Any Resource :
+
+http://subbbu.com -- > it reach R53--> Hosted zone (subbu.com) --> records(subbu.com --> ec2 ip or elb nasty url)
+
+- url to ANY Resource 
+
+
+
+4 CNAME Record : URL to URL : 
+
+http://subbbu.com -- > it reach R53--> Hosted zone (subbu.com) --> records (subbu.com-->ELB Nasty URL)
+
+URL to URL 
+
+
+
+
+
+--- here 
+
+-- http://subbbu.com  ----- Main Domain / Naked domain / Zone Apex Record 
+
+-- admin.gopi.com , web.subbu.com ----- called Sub-domains 
+
+
+-- CNAME Records are bilable , where as Alias Rec are free 
+
+-- for Naked domain/Main domain we can not use CNAME , instead use Alias 
+
+-- for sub-domains u can u can use CNAME
+
+-- NOte: Always choose Alias over CNAME 
+
+
+
+====================================ROUTING POLICIES
+
+1               Simple Routing Policy
+
+-- when u search for soemthing it wil goto R53 
+
+http://subbbu.com --> r53 --> hosted ones --> Records --> ELB DNS name 
+
+-- here we are doing simple routing so it is called "simple Routing Policy"
+
+-- it does not have Health Checks 
+
+-- if any down happens of websites u won't get any response from website 
+
+
+
+2               FailOver Routing Policy : 
+
+-- u have to create 2 records for this policy 
+
+eg : 
+
+  subbu.com --> ELB DNS Name(Mumbai) -- primary record 
+
+  subbu.com --> ELB DNS Name(ireland) -- Secondary record 
+
+
+if one record get down , the request will automaticall go to second record 
+
+-- for this u have to setup 2 sites in different regions for high availability if downtime of websites happens
+
+-- if u have maintainnece page ,u go for S3 , u can redirect to S3 ur request  
+
+-- it has health checks
+
+
+
+3                  Geo-Location Routing Policy;
+
+
+-- for eg u have cutomers all over the world if they are in china , japan , india, austria etc
+
+-- here if some one is from japan , search for http://subbu.com but he wants in Japanese language 
+
+-- so we have application in each region , we donot have other options , so in each region we do have  appn in region seperately , in this case CF is not work 
+
+-- if user search for something from japan , he will get reply from japan only 
+
+-- how to do? 
+
+we have to create records for each regions eg : if u have 5 regions then create 5 records 
+
+http://subbu.com-->Mumbai ELB/IP
+http://subbu.com-->sydney ELB/IP
+http://subbu.com-->us ELB/IP
+http://subbu.com-->ALSKA ELB/IP
+http://subbu.com-->japan ELB/IP
+
+
+-- R53 will identify user's/request location automatically and redirect to the correct record 
+
+
+
+4                Latency Routing Policy 
+
+
+
+-- u have different Regions , u have appn in every region seperately
+
+-- if he made any request it does not matter about the regions 
+
+-- which regions give low latency from there resonxe will get 
+
+
+
+5       Mutli-Value Routing Policy (weighted -Routing Policy)
+
+--  Same as Simple routing Polcy but it has Health Checks 
+
+-- share the traffic based on the traffic 
+
+
+============================R53 prac=============
+
+-- to do this buy domain in R53 registry 
+
+
+
+
+
+
+========================================VPC(Virual Private Cloud)==================
+
+-- it is like a virtual Data center of cloud 
+
+-- Vpc is Regional, MaxVPC's per Region is 5 
+
+VPC 
+Internet Gateway
+Public and private subnets  ( 200 subnets per VPC)
+NAT Gateway
+Route with Route Tables
+
+
+
+-- Internet Gateway : it provide internet to the VPC , creat IG and attach to VPC
+
+-- Public subnet : it is exposd to the internet , public subnet raffic is roouted to Internet Gateway 
+
+-- Private subnet : it is not exposd to the internet , private subnet raffic is roouted to NAT(NEtwork Addres Translator) Gateway 
+
+
+-- The job of NAT Gateway is provide internet to the Private Subnet and convert Private IP to Public IP 
+
+-- The NAT Gateway Should put in Public subnet 
+
+
+-- Routing:  they r 2 types of R.T
+
+1 Public RT : all traffic is routed to IGW , public subnet is associated
+
+2 Private RT : ALl traffic is routed to NAT, Private Subnet is Associated 
+
+
+--------------------Steps to create our own VPC
+
+1 crate VPC
+
+2 Create IG and attachto the VPC 
+
+3 Create Public and private Subnets
+
+4 Create NAT Gateway(in public subnet) 
+
+5 Create public RT --> all traffic is routed to IG , public subnet is associated 
+
+6 create Private RT --> All Traffic is routed to NAT,Private Subnet is Associated 
+
+7 Create a new Security Group, Allow RDP/SSH 
+
+8 launch ec2 in Public subnet (Bastion Server) and another in Private Subnet 
+
+9 try to connecting to private server through Bastion server 
+
+
+NOTE : IG and NAT(Managed by AWS) Gateways are "Services not Servers" 
+
+
+
+
+--- from ur laptap , u can directly connect to public internnet, but u can not connect private subnet directly 
+
+-- to connect private subnet from internet(from latap , not from company)  , u have to launch one Ec2 in Public Subnet which is called "Baston server / Jump server" ( it is only for learnig purpose not real time scenario) 
+
+-- first login into baston server and connect to private subnet 
+
+-- in real scenario ur company is private network , u are using VPN Connection from company to AWS , so u no need to login into baston server , u can directly acces private servers 
+
+-- if u want to connect client private subnets u first need to login into client's Baston server 
+
+
+
+
+
+
+Question : one person came to u and ask , i have ec2 instnce in private subnet and i do not want internet access to my private subnet what u do? but he wants to Access AWS services from private subnet
+
+SOln:
+
+-- By default 3 sunets are there , these are allocated to each AZ , all these are public subnets only ( u rable to login into ec2) that's why it is public subnets 
+
+-- we do not have NAT for Default VPC
+
+
+but he wants to Access AWS services from private subnet ? 
+
+-- in AWS We have VPC ENDPOINTS : it is use to Access only AWS services without NAT Gateway
+
+
+
+----------------------------CIDR(Classless InterDomain Routing) 
+
+-- private ip series starts with eg: 172.98.90.2/16
+
+
+--  172.98.90.2 = Base IP 
+
+-- /16 = SubnetMask
+
+-- eg: u can create 3 subnets in VPC
+
+192.168.1.0/24 = s1  -----> it it is routing to IG , so it is called Public subnet (1a AZ)
+
+192.168.2.0/24 = s2 ------> it it is routing to NAT , so it is called private subnet (1B)
+
+192.168.3.0/24 = s3 ------> it it is routing to VPCENDPOINTS , so it is called private subnet (1c)
+
+
+-- for private purpose it starts with 192, 10, 172 
+
+-- rest all are for public IP's
+
+-- 1 subnet should be in one AZ at the same Time 
+
+--- 1 AZ can have multiple subnets  
+
+
+------------------------------------- what is SubnetMask :this refers to how many IP's that u get inside subnet
+
+-- we have formula 
+
+-------------------------------   2^32-n
+
+
+for eg /24 then 
+
+
+2^32-24 == 2^8 = 256 IP's u wil get , u can launch 256 ec2 u can launch 
+
+
+NOTE : u have to remove 5 IP's from each subnet maks , here u will get 251 
+
+
+- 5 IP's are reserved for each subnets 
+
+.0 = Network purpose 
+
+.1 = Router
+
+.2 = DNS 
+
+.3 = Future purpose 
+
+.255 = BroadCasting 
+
+
+/32 = pnly one IP
+
+
+
+-------------------------------------------steps to create VPC with CIDR
+
+1  crate VPCwith CIDR (192.168.0.0/16)
+
+2  Create IGW and attach to the VPC 
+
+3  Create Public subnet(192.168.1.0/24)
+
+4  Create Private subnet(192.168.2.0/24)
+
+5  create NAT Gateway (in public subnet, and also we have to provide EIP for NAT) 
+
+6  Create Public RT ---> al traffic is routed to IGW ,public subnet is associated 
+
+7  create Private RT --> all traffic is routed to NAT, rivate Subnet is Associated 
+
+8  Create a new Security Group , allow RDP/SSH 
+
+9 Launch EC2 instance in public Subnet (Bastion Server) and Another in private Subnet 
+
+10 Connect to BAstion first and then into the private server 
+
+
+
+======================================Prac(VPC)==============================
+
+
+
+-- create VPC with CIDR 192.168.0.0/16
+
+
+-- One IGW attach to only one VPC at the same time 
+
+-- create IGW , and attach to vpc that u have created 
+
+-- create public subnet , give subnet CIDR as 192.168.1.0/24
+
+-- create private subnet , give subnet CIDR as 192.168.2.0/24
+
+-- now Create NAT Gateway, it should be in the public subnet only 
+
+-- create RT , once new VPC created a Default RT created automatically 
+
+-- create RT public and private 
+
+-- now go to public RT and add Route--> edit routes --> add route --> 0.0.0.0/0--> IGW  and also associate public subnet for public RT 
+
+
+-- do same process for Private RT with private rulels
+
+-- now create ur own SG's with ur VPC
+
+-- launch 1 instance , in public subnet 
+
+-- launch 1 instance , in private  subnet and disable Public 
+
+-- now connect to public subnet instance , sudo -s
+
+--    try connect to private server 
+
+--  to conect private server , u just copy SSH Client id and paste in public istance 
+
+eg : ssh -i "terraform-key.pem" ec2-user@192.168.2.31
+
+
+-- create one file to store .pem value in the public instance 
+
+-- vi terraform-key.pem and paste content of .pem file 
+
+-- we do ot have read permissions for this , so create prmisions 
+
+     chmod 400 terraform-key.pem
+
+-- now try to connect --> Yes
+
+-- once u connect succesfully ,it will connect to the private server 
+
+previusly it was root@ip-192-168-1-129 ec2-user 
+
+-- once u connect to private server u will redirected to the private IP of private server like    
+[ec2-user@ip-192-168-2-31 ~]$ 
+
+
+---------------------ENDPOINTS
+
+-- now u are in private server 
+
+-- do sudo -s
+
+-- this private server in the private subnet and Associated to Private Route Table , in Private RT all traffic is routed to NAT Gateway, so it has internet access 
+
+-- test whether it has internet or not 
+
+--  yum install -y git ,it installd so , it has internet
+
+-- but i do not wnat internet access , so go to Private RT and delete entry for NAT 
+
+-- not able to login 
+
+--   i want only access to AWS service from this linux machine without internet access 
+
+-- so first install AWS CLI 
+
+-- we r in private server so enable NAT access to download AWS CLI in Private RT 
+
+-- curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+-- unzip awscliv2.zip
+
+sudo ./aws/install
+
+-- follow above  steps to install 
+
+-- now i do not want to give keys in the ec2 instance itself 'coz it is not safe to give keys here so , attach role to this insatce 
+
+-- IAM -->roles --> Aws service (TE) --> user EC2 --> give full access of which service u want to access , (s3) --> create role 
+
+-- attach role to the private server 
+
+-- go to private server and try to access bucket 
+
+-- create bucket in linux 
+
+      aws s3 mb s3://vpc-bucket --region ap-south-1
+
+-- u can able to create bucket it has NAT mens full internet access , check in s3 bucket is created 
+
+
+-----------now i do not want intrnet Acces , so delete NAT entry in Private RT 
+
+-- now we do not have internet Access but i want to acces the AWS service like s3 
+
+-- create endpoint in the console 
+
+-- ENDPOINTS are 3 typrs 
+
+1 Interface-Endpoint : it uses ENI(elastic network interface) , it has private link 
+
+2 Gateway Load Balancer :  it uses ENI(elastic network interface) , it has private link 
+
+3 Gateway Endpoints : recommended , it works with Routing tables 
+
+-- use Gateway Endpoint 
+
+-- search for s3  and use Gateway Endpoints --> se;ect VPC and attach RT to private Routing Tables 
+
+-- EndPOINT use AWS inernal network toacces the services 
+
+-- go n check in Private RT it wi create one oute for ENDPOINT ( pl-78a54011)
+
+-- pl = prefix list = group of network ranges  
+
+-- we have created ENDPINTS , now try to Access 
+
+-- now try to create bucket 
+
+aws s3 mb s3://vpc-bucket19876 --region ap-south-1
+
+-- u will able to create without NAT and internet 
+
+-- aws s3 ls 
+
+-- it works only to connect for AWS Services only 
+
+
+
+
+==========================================VPC PEERING==============================
+
+-- create pering can be done in same region , same account and different account also 
+
+-- create 2 vpc's , one in mumbai and one in ieland regions 
+
+-- Two VPC CIDR should be UNIQUE 
+
+-- u can connect to ur servers n vpc which is another region through the VPC Peering 
+
+-- create 2 vpc in different region 
+
+-- follow above steps for creating all requriments IGW ,create public nad private subnets, NAT , Public and private RT's ssociate route tables and Subnets and SG and 2 instances  for vpc 
+
+-- do the same things in other region CIDR 192.169.0.0/16, u can same region or u can do in another account also ( no need to create public instance(baston) , create private subnet only 
+
+-- once u do all setup 
+
+--  go to mumbai region connect BAston server first ,sudo -s
+
+-- create one file to store terraform-key.pem value , vi terraform-key.pem
+
+-- copy SSH Client link of private server 
+
+-- chmod 400 terraform-key.pem
+
+-- now u are able to connect private server from the baston server 
+
+------- now do sudo -s
+
+-- now frm mumbai u should get connect to the ireland 
+
+-- go and copy SSH CLient of ireland private instance 
+
+
+-- now go to mumbai location and open peering connection , once u created Peering conection 
+
+-- go to VPC and check in peering and do accept 
+
+-- once u accept , open private RT and dd route of VPC trafic of ireland (192.169.0.0/16) 
+
+-- do same i ireland private RT (192.168.0.0/16) 
+
+
+-- now go to SG of mumbai --> add 192.169.0.0/16 in inbound rules 
+
+-- do vice versa in ireland SG 192.168.0.0/16
+
+-- once u do u can able to login to irland vpc private server 
+
+
+
+
+-------- if u want to create vpc for ur company 
+
+u have to create 
+
+1 Virtual Private Gateway 
+
+2 Customer Gateway 
+
+3 Site-to-Site Vpn --> ownlaod configuration n give it to the comonay network admin to setup VPN Connction from Company to AWS 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
