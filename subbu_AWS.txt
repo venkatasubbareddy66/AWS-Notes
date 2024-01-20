@@ -2048,6 +2048,73 @@ def lambda_handler(event, context):
 - lambda will be only billed onexeccution times 
 
 
+===========================Cloudwatch Theory=============================
+
+-- it is a service that collects and manages operational data 
+
+-- operationl data and ny dtaa that u collected by an environment either detailing how it performs , how it normally runs or any logging data it generates 
+
+---- we have 3 teminologies 
+
+1  Metics : collects data of AWS Products , Apps and even on-premises servers
+
+2  Cloudwatch Logs : logs of AWS products , Aps, on-premises
+
+3  CloudWatch Events : AWS Services and Schedules 
+
+Eg : it generates C.W events when EC2 stops , start or anything 
+
+
+-----------some  terminologies to nderstand for the Cloudwatch 
+
+1  NameSpaces : Containers for monitoring data , it is a way to keep things seperate 
+
+-- NameSpace has got a name , it can be anythng as long as it stays within the rule set 
+
+-- All aws data goes to aws namesoace ---> AWS/Service
+
+-- Namespace contains related metric 
+
+2  Metric : it is a collection of related Data Points , in the time ordered structures 
+
+Eg: cpu usage network IN/OUT 
+
+
+3  Data Point : let us say we have metric called CPU Utilization , everytime any server measures its utilixation and send it into cloudwatch that goes into the CPU utilization metrics and each one of those measures so everytime the server reports the cpu that measure is called "Data Point" 
+
+
+--it has 2 components 
+
+1 timestamp 
+
+2 value 
+
+
+Note : CPU utilization metic could contain data from many servers ,so how do we seperate data for this? so use " Dimesions"
+
+
+4  Dimensions : these are Name Value Pairs that seperate data point for different thngs or perspective withn the same metric 
+
+
+-- while sending data points to cloud watch ,AWS also send in , these two 
+
+A) Name = InstanceID , Value =I-xxxx
+
+B) name = InstanceType , value =t2.micro.......
+
+
+5  ALARM : CW also allows to take actions based on metrics which is done using Alarms 
+
+-- two states 
+
+A) OK --> Everything is working fine 
+
+B) ALARM --> Something bad has happened 
+
+
+
+
+
 
 ==============================================CLoudWatch LOGS=============
 
