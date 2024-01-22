@@ -4763,7 +4763,182 @@ u have to create
 
 3 Site-to-Site Vpn --> ownlaod configuration n give it to the comonay network admin to setup VPN Connction from Company to AWS 
 
- 
+
+
+
+
+
+
+==============================AMAZON ATHENA========================================
+
+
+-- it is Quering tool , Start Quering Data instantly . Get Result in seconds , pay only for the queries that u run 
+
+-- Athena is an Interactive Query service that makes it easy to analyze data in A S3 using "Standard SQL"
+
+-- it is serveless , so there is no nfrastructure to manage , and u can pay only for the queries that u run 
+
+
+-- just point to ur data in A S3 , define the SCHEMA and start Quering using STD SQL 
+
+-- Most results delivered within seconds , with Athena , there is no need for complex ETL Jobs to prepare ur data for analysis 
+
+-- This makes it easy for nayone with SQL Skills to quickly analyze large -scale databasets
+
+
+-------------------Benefits 
+
+
+-- Start quering instantly 
+
+-- pay per query ( 5 dollads per TB scan) 
+
+-- open, powerful, standard
+
+-- it is really Fast 
+
+
+------------------------How it works ? 
+
+see in amazoon website documentation 
+
+
+
+
+=================================================What is Amazon CloudSearch
+
+
+-- it is Managed Service in the AWS Cloud 
+
+-- it makes it simple and cost-effective to setup, manage and scale a search solution for ur website or appn 
+
+-- Supports 34 languages
+
+-- popular Search features such as 
+
+- highliting 
+
+- autocomplete and 
+
+- Geospatial search 
+
+
+---------------Benefits 
+
+- simple 
+
+- Auto-Scalable 
+
+- Reliable 
+
+- High Performnace 
+
+- Fully Managed 
+
+- Cost-Effective and Secure 
+
+
+
+
+
+=========================================Connect to AWS EC2 Using AWS SSM Session Manager ,Secure your EC2 by Enabling AWS SSM===========================
+
+
+-- Why we need this ?
+
+
+Let us assume that u have ec2 in a Private Subnet and need to connect to the instance without using SSH over the internet . How will u do it?
+
+
+Ans : by using  "Using AWS SSM Session Manager"
+
+for this u have to create IAM Role for ec2 instance and attach "AmazonSSMManagedInstanceCore" Policy 
+
+
+-- U no need to worry about following points 
+
+1 no Ports arre needed to be allowed in SG 
+
+2 U can run instances in Private subnets 
+
+3 there is no need of SSH keys 
+
+4 u can delegate access to manage c2 insatcnes using IAM roles.
+
+
+
+Note: By default there are few AMI's that have SSM installed already , it is like a C.W Agent , but it is to be installed 
+
+
+--- some AMI's that have SSM Agent pre-installed
+
+Amazon Linux Base AMIs dated 2017.09 and later
+
+Amazon Linux 2
+
+Amazon Linux 2 ECS-Optimized Base AMIs
+
+Amazon Linux 2023 (AL2023)
+
+Amazon EKS-Optimized Amazon Linux AMIs
+
+macOS 10.14.x (Mojave), 10.15.x (Catalina), 11.x (Big Sur), and 12.x (Monterey)
+
+SUSE Linux Enterprise Server (SLES) 12 and 15
+
+Ubuntu Server 16.04, 18.04, 20.04, and 22.04
+
+Windows Server 2008-2012 R2 AMIs published in November 2016 or later
+
+Windows Server 2016, 2019, and 2022
+
+
+
+
+to check the status 
+
+-- Amazon Linux        
+
+sudo status amazon-ssm-agent
+
+
+--  Amazon Linux 2 and Amazon Linux 2023         
+
+sudo systemctl status amazon-ssm-agent
+
+
+--   SUSE Linux Enterprise Server       
+
+sudo systemctl status amazon-ssm-agent           
+
+
+
+-----------------------------DEMO
+
+
+-- check for linux 2 machine , o need to give keys n SG optional 
+
+
+-- now we want to connect thruh SSM session but we are not getting option to get connect through the SSM sesion 
+
+-- to do that we know it has aleady pre -installed SSM Agent , verify it is there or not by connecting through ec2-connect 
+
+sudo systemctl status amazon-ssm-agent
+
+it is running 
+
+
+-- now u have to create role for SSM Session 
+
+IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore policy -->create role --> attach this role to the Ec2 instance 
+
+--it will take 5-10 min to connect through SSM session 
+
+
+
+
+
+
 
 
 
