@@ -4377,7 +4377,29 @@ http://subbu.com-->japan ELB/IP
 
 ============================R53 prac=============
 
--- to do this buy domain in R53 registry 
+-- to do this buy domain in R53 registry or do purchase from any other 3rd party services 
+
+-- i Bought from NameCheap 
+
+-- go to your domain --> manage domain --> custom domain in drop down menu
+
+-- now create one ec2 instance with the user data 
+
+#!/bin/bash 
+yum install httpd -y
+service httpd start 
+chkconfig httpd on 
+mkdir /var/www/html
+echo ”<h1>this is website on EC2 with R53</h1>” > /var/www/html/index.html
+
+
+-- now do create another ec2 with same userdata
+
+-- make sure you have to give HTTP in SG 
+
+-- now create one Load Balancer 
+
+-- 
 
 
 
