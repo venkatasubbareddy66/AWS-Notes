@@ -4385,6 +4385,8 @@ http://subbu.com-->japan ELB/IP
 
 -- now create one ec2 instance with the user data 
 
+-- make sure you are using linux 2 version 
+
 #!/bin/bash 
 yum install httpd -y
 service httpd start 
@@ -4393,13 +4395,55 @@ mkdir /var/www/html
 echo ”<h1>this is website on EC2 with R53</h1>” > /var/www/html/index.html
 
 
--- now do create another ec2 with same userdata
+-- now do create another ec2 with same userdata in 1b availability zone
 
 -- make sure you have to give HTTP in SG 
 
--- now create one Load Balancer 
+-- now create one Load Balancer (application load balancer) 
 
--- 
+-- it is not good to give nasty url of LB so do make over for this link 
+
+-- go to R53 service 
+
+-- You have to create one hosted zone in R53 
+
+-- if You purchase domain in AWS itself automatically it will create Hosted zone for you 
+
+-- if u buy some other places u have to create ur hosted zones 
+
+-- create hosted zone, the name is  ( it should be same ur domain name)
+
+-- mine is  subbucloud.lat
+
+-- create hosted zone with public type 
+
+-- once u created hosted zone it will create 2 Records automatically Ns and SOA
+
+-- NS have 4 servers , u should give these servers in ur custom domain (3rd party) 
+
+-- update ur Name servers in ur custom domain 
+
+-- now create records to do make up of ur url 
+
+-- here u can go with subdomian or with naked (main) Url 
+
+
+1 simple routing policy
+
+-- type sample is sub-domain and record type is A
+
+-- choose Alias Always on , if u do not on u have to give ur IP but we have LB so choose Alias
+
+-- in route traffic section 
+
+select   alias to application and classic load balancer 
+
+select AZ , LB and Routing policy 
+
+-- create record
+
+
+2 
 
 
 
