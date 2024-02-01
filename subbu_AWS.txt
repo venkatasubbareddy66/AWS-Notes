@@ -3490,8 +3490,9 @@ imp : File Gateway supports "NFS" for LINUX and for WINDOWS it use "SMB"(server 
 Imp : volume gateway we ahve 2 types 
 
 1 cached volume : to increase the performance ,it uses protocal "iSCSi"
+you store volume data in AWS, with a small portion of recently accessed data in the cache on-premises. ...
 
-2 Stored Volume :
+2 Stored Volume : you store the entire set of volume data on-premises and store periodic point-in-time backups (snapshots) in AWS.
 
 
 3 if u want to create "Glacier" create "tape gateway"
