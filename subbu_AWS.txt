@@ -4397,6 +4397,50 @@ systemctl enable httpd
 echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
 
 
+IMP NOTE : If u r getting apache test page I instead of ur content) no need to worry , just follow below things -- Geek Dairy
+
+-- connect Linux machine and login as super user sudo su
+
+-- Method 1
+
+-- removing/renaming Welcome Page
+
+mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf_backup
+
+-- Make sure that Apache is restarted (as root) with the command:
+
+systemctl restart httpd
+
+
+-- Method 2
+
+-- allow Indexes in /etc/httpd/conf.d/welcome.conf
+
+-- Without an index at the DocumentRoot, the default Apache Welcome page will display unless /etc/httpd/conf.d/welcome.conf is modified to allow Indexes. Edit /etc/httpd/conf.d/welcome.conf to allow Indexes.
+
+-- Comment the Options line (add a # mark) in /etc/httpd/conf.d/welcome.conf as shown below:
+
+vi /etc/httpd/conf.d/welcome.conf
+<LocationMatch "^/+$">
+#   Options -Indexes
+    ErrorDocument 403 /error/noindex.html
+</LocationMatch>
+
+              or 
+
+you can enable Indexes by changing the – to a +
+
+vi /etc/httpd/conf.d/welcome.conf
+<LocationMatch "^/+$">
+    Options +Indexes
+    ErrorDocument 403 /error/noindex.html
+</LocationMatch>
+
+-- systemctl restart httpd
+
+-- thats it !
+
+
 -- now do create another ec2 with same userdata in 1b availability zone
 
 -- make sure you have to give HTTP in SG 
