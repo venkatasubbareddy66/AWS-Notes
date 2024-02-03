@@ -4540,11 +4540,7 @@ select AZ , LB and Routing policy
 -- getting maintainance page successfully 
 
 
-
-
-
-
-
+-- u can also do same for geo location policy
 
 
 
