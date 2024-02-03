@@ -4521,11 +4521,12 @@ select AZ , LB and Routing policy
 
 -- we know how to create load balancers in different regions but now we will try with the maintainance page which is stored in S3 
 
--- create one html files add some content related to the maintainance and do store in the s3 bucket 
+-- create one html files add some content related to the maintainance and do store in the s3 bucket (IMP: ur record name and bucket name should be same  then only it works )
 
 -- make sure ur bucket name is ur domain for easy understanding purpose (ACL is enabled for bucket)
 
--- upload html file and make file has Public and enable static weh hosting ( in index document u have to give ur index.html extension like 
+-- upload html file and make file has Public and enable static weh hosting ( in index document u have to give ur index.html extension like maintainace.html
+
 
 
 
