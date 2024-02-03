@@ -4527,6 +4527,21 @@ select AZ , LB and Routing policy
 
 -- upload html file and make file has Public and enable static weh hosting ( in index document u have to give ur index.html extension like maintainace.html
 
+-- create records for load balancer and s3 
+
+-- for s3 record u have to slect end point as s3 website endpoint in dropdown below 
+
+-- check ur url is working 
+
+-- now stop the primary site and observe the changes 
+
+-- if ur primary site is not working then it will shift to secondary site so , here u will get mainatainanace page , through the health checks the LOad balancer know that primary site is down so , it will shift traffic to the nxt site
+
+-- getting maintainance page successfully 
+
+
+
+
 
 
 
