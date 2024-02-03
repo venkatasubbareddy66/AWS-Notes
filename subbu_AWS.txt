@@ -4511,7 +4511,21 @@ select AZ , LB and Routing policy
 -- create record
 
 
-2 
+2  FailOver Routing Policy
+
+-- FailOver it means in simple words if ur website is facing down period in one Region then , automatically the Load balancer will shift the request into the another another region 
+
+-- in Genaral we have deployed our application in 2 regions for high availability , if one region goes down automatically the request shift to another region through the load balancer 
+
+-- for this we have 2 primary site and secondary site , if primary site is not working then it will redirect to secondary site 
+
+-- we know how to create load balancers in different regions but now we will try with the maintainance page which is stored in S3 
+
+-- create one html files add some content related to the maintainance and do store in the s3 bucket 
+
+-- make sure ur bucket name is ur domain for easy understanding purpose (ACL is enabled for bucket)
+
+-- upload html file and make file has Public and enable static weh hosting ( in index document u have to give ur index.html extension like 
 
 
 
