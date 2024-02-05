@@ -5098,6 +5098,177 @@ IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore p
 
 -- some scenario based question 
 
+1   u have been tasked with encrypting EBS Volumes that are restored from unencrypted EBS snapshots . What should u do ? 
+
+ANS :  To encrypt EBS volumes restored from unencrypted EBS snapshots , u can copy the snapshots and enable encryption with a Symmetric Customer Master key (CMK) while creating an EBS volume using the snapshot. This ensures that the restored volumes are encrypted .
+
+
+2. U need to limit the maximum number of request from a single IP address. How can u achieve this? 
+
+Ans :  T0 limit the max number of requests from a single IP address, u can create a  “rate-based” rule in was web Application Firewall (WAF) and set the desired rate limit . This helps protect your applications from excessive traffic from Single IP Address.
+
+
+3  u want to grant the bucket full access to all upload objects in an S3 bucket . What steps should you take ?
+
+Ans :  To grant the bucket owner full access to all uploaded objects in an s3 bucket , u can create a bucket policy that requires users to set the objects Access control list (ACL) to “BUCKET-OWNER_FULL_CONTROL” , This ensures that the bucket owner has complete control over the objects in the bucket 
+
+
+4. How to protect accidental deletion or overwrite objects in an S3 bucket ? 
+
+Ans:  To protect objects in an S3 bucket from accidental deletion or overwrite , u can enable versioning and enable multi-factor Authentication(MFA) delete. 
+
+Versioning Keeps multiple versions of an object , and MFA delete requires additional authentication before deleting or overwriting objects , adding an extra layer of protection .
+
+
+5. U want to access resources on both on-premises and aws using on-premises credentials stored in Active Directory . How can u Accomplish this ?
+
+Ans:  To access resource both , u can set up SAML 2.o-Based federation using a Microsoft Active Directory Federation Service (AD FS). This allows users to authenticate with their on-premises credentials and access AWS resources Securely .
+
+
+6  u need to secure the sensitive data stored in EBS volumes . What should u do ?
+
+Ans: To do this , u can enable EBS Encryption. This encrypts the data at rest, providing an additional layer of security for ur sensitive information 
+
+7 u want to ensure that the data-in-transit and data-at-rest of an amazon S3 bucket is always encrypted . How can u achieve this?]
+
+Ans:  u can enabled Amazon S3 server-Side Encryption or use Client-Side Encryption . These encryption methods protect ur data from unauthorised access during transmission and storage 
+
+
+8  u need to secure a web application by allowing multiple domains to serve SSL traffic over the same IP address . What steps should u take ? 
+
+Ans :  u can use AWS Certificate Manager (ACM) to generate an SSL certificate. Associate the certificate to a CLOUDFront Distribution and enable Server Name Indication(SNI) , which allows multiple SSL certificates to be served from a single IP address 
+
+
+9. U want to control access for several buckets by using a gateway endpoint to allow access to trusted buckets . How can u achieve this?
+
+Ans :  u can create an endpoint policy for the trusted s3 buckets . This policy specifies the permissions and access controls for the buckets accessed through the gateway endpoint 
+
+
+10  u need to setup Asynchronous data replication to another RDS Db instance hosted in another AWS Region . How can you achieve this?
+
+Ans :  u can create a Read Replica . This allows us to to replicate ur data from the primary RDS DB instance to the replica, ensuring data redundancy and availability 
+
+
+11.  U require	 a parallel file system for “hot” (frequently accessed) data . What AWS services can fulfil this requirement?
+
+Ans :  u can utilize Amazon Fix for lustre . It is a fully managed , high performance file system optimised for workloads that require fast access to data 
+
+
+12.  U need to implement synchronous data replication across Availability Zones with automatic failover in Amazon RDS . What should u do ?
+
+Ans :  to achieve synchronous data replication across A>Z with automatic failover in A RDS , u can enable “MULTI-AZ “ deployment. This configuration automatically replicates ur databases synchronously to a standby instance in a different Availability Zone, ensuring high availability and automatic failover.
+
+
+IMP Note : synchronous : Multi-AZ  deployment 
+
+Asynchronous : read Replicas 
+
+
+
+13. U require a storage service to host “cold”( infrequently accessed) data. Which was service fulfilled this requirement?
+
+Ans :  to host infrequently accessed data u can leverage amazon S3 Glacier . It is a low-cost storage service designed for long-term archiving and backups of data that is accessed less frequently 
+
+
+14. U need to setup a relational databases with a disaster recovery plan having an RPO of 1 second and RTO of less than 1 minute . What should You use ? 
+
+Ans :  u can utilise Amazon Aurora Global database. It provides low-latency global replication, enabling rapid failover and ensuring minimal data loss 
+
+
+15. U want to monitor databases metrics and receive email notifications when a specific threshold is breached . How can u accomplish this ? 
+
+Ans :  u can create an SNS (simple Notification Service ) topic and add the topic in the cloud watch alarm . This enables us to to receive alerts via email when specific metric thresholds are crossed 
+
+
+16.  U need to setup DNS failover to a static website . How can you achieve this?
+
+Ans :  us  R53 
+
+
+17. U want to implement automated backups for all ur EBS volumes . What should u do ? 
+
+Ans:  u can use Amazon data LifeCycle Manager . This service allows u to automate the creation and recreation of EBS snapshots based on customisable schedules and lifecycle policies 
+
+18. U need to monitor the available swap space of ur ec2 instances . How can u monitor this metric ? 
+
+Ans :  to monitor the available swap space of ur ec2 instances , u can install the Cloudwatch Agent and configure it to monitore the Swaputilization metric . This enables us to to track the swap space usage and take appropriate actions if necessary 
+
+
+19.  How to implement fanout messaging ?
+
+Ans:  to implement this u can create an SNS topics with a message filtering policy and configure multiple SQS queues to subscribe to the topic 
+
+
+20.  U require a DB that has a read replication latency of less than 1 Second? 
+
+Ans:  u can use Amazon Aurora with cross-region replicas 
+
+
+21 A specific type LB that use UDP a the protocol for communications b/w clients and thousands of game servers around the world 
+
+Ans : use network load balancer  for TCP/UDP protocols 
+
+
+22 how to monitor disk and memory space utilisation of an ec2 instance ?
+
+Ans :  install Cloud watch Agent  on instance  
+
+
+23. Retrieve a subset of data from a large CSV file stored in the s3 bucket ? 
+
+Ans:  perform S3 select operation based on the bucket’s name and object’s key.
+
+S3 select allows u to select specific portion of data from large objects  reducing the amount of data transfer  and also improving performance at the same time 
+
+
+24.  U have to upload 1TB file to s3 
+
+Ans : use Multi-part upload API to upload large objects in parts 
+
+
+25.  Improve the performance of the applications by reducing the response times from milliseconds to microseconds ?
+
+Ans:  use  Amazon DynamoDb Accelerator (DAX) , it is in-memory caching service for the Dynamodb , it significantly reduce the database read latency  and improves application performance 
+
+
+26.  IMP q . Retrieve the instance Id , Public Keys , and Public IP address of an Ec2 instance . 
+
+Ans:  Access the URL 
+
+
+TOKEN=‘curl -X PUT ”http://169.254.169.254/latest/api/token” -H ”X-aws-ec2-metadata-token-ttl-seconds: 21600”‘ \ && curl -H ”X-aws-ec2- metadata-token: $TOKEN” -v http://169.254.169.254/latest/meta-data/ 
+
+This is also Called magic Ip Address 
+
+
+27 Route the internet traffic to the resource based on the location of the user ? 
+Ans :  use R53 Geolocation Routing Policy 
+
+28.  Suggest A cost -effective soln for over-provisioning of resource ?
+Ans:  configure a target Tracking Scaling in ASG , this automatically adjust no.of instances  based on pre-defined metrics optimizing resource allocation and cost management 
+
+29.  The application data is stored in a tape backup soon . The backup data must be preserved for up to 10 years ?
+Ans :  Use Was Storage Gateway to backup the data directly to amazon S3 glacier Deep Archive.
+
+30.  Accelerate the transfer of historical records from on-premises to aws over the internet in a cost-effective manner ? 
+Ans:  Use Aws Data-sync and select Amazon S3 Deep Archive as the Destination 
+Data -sync optimizes the data transfer , ensuring efficient and reliable  to a long term storage 
+
+31. Globally Deliver the static contents and media files to customers around world with low latency ?
+Ans: Store the files in Amazon S3 and create Cloud Front Distribution . Select the S3 bucket as the origin 
+
+32 An application must be hosted to 2 ec2 instances and should continuously run for three years . The cpu utilisation of ec2 instances is expected to be stable and predictable?
+Ans:  Deploy the application to a Reserved Instance , it provides long-term cost effective options and predictable workloads 
+
+33. Implement a cost -effective soon for s3 objects that are accessed less frequently.
+Ans: Create an Amazon life cycle policy to move the objects to amazon s3 Standard-IA 
+
+34.  Minimise the data transfer costs b/w two instances ?
+Ans: Deploy the ec2 instance in the same region 
+
+35. Import the SSL/TLS certificate of applications into Aws ?
+Ans: Import into Aws Certificate manager or upload it to AWS IAM 
+
 
 
 
