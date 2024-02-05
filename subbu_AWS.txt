@@ -5096,6 +5096,47 @@ IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore p
 
 
 
+
+=======================Automatically start and stop ur instance with instance scheduler
+
+-- launch the instance schedular task hub
+
+-- when u click on launch solutions , it will redirect to the cloud formation it takes url for s3 automatically 
+
+-- leave all the values default , in last step enable checkbox
+
+-- do submit the stack it will apporx five minutes to complete the stack 
+
+-- here automatically it will create dynamodb table , lambda function, IAM , SNS, setup KMS and other things as shown in the diagram 
+
+-- once u done ,now configure Periods and schedules 
+
+-- basically schedule is made up of multiple periods
+
+sample period example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- some scenario based question 
 
 1   u have been tasked with encrypting EBS Volumes that are restored from unencrypted EBS snapshots . What should u do ? 
