@@ -5097,7 +5097,7 @@ IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore p
 
 
 
-=======================Automatically start and stop ur instance with instance scheduler
+=======================Automatically start and stop ur instance with instance scheduler=========================================
 
 -- launch the instance schedular task hub
 
@@ -5113,27 +5113,137 @@ IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore p
 
 -- basically schedule is made up of multiple periods
 
-sample period example 
+-- The Instance Scheduler on AWS allows you to automatically start and stop Amazon Elastic Compute Cloud (Amazon EC2) and Amazon Relational Database Service (Amazon RDS) instances.some example schedules that can be adapted to many common use-cases.
+
+-- sample schedules
+
+1  Standard 9-5 working hours
+
+this schedule shows how to run instances on weekdays from 9 AM to 5 PM 
+
+Periods
+
+This period will start instances at 9 AM and stop instances at 5 PM on weekdays (Mon-Fri).
+
+
+Field	      Value
+
+begintime	09:00
+endtime	        16:59
+name	        weekdays 9-5
+weekdays	mon-fri
+
+
+Schedule
+
+The schedule combines the three periods into the schedule for tagged instances. The schedule includes the following fields and values.
+
+Field	     Value
+
+name	      london-working-hours
+periods	      weekdays 9-5
+timezone.     Europe/London
+
+
+2. Stop instances after 5 PM
+
+
+Instances can be started freely at any time during the day and this schedule will ensure that a stop command is automatically sent to them at 5 PM ET every day.
+
+
+Periods
+
+This period will stop instances at 5 PM every day.
+
+Field	Value
+
+endtime	16:59
+name	stop-at-5 
+
+Schedule
+
+The schedule name provides the tag value that must be applied to insances and the timezone that will be used.
+
+Field	        Value
+
+name	        stop-at-5-new-york
+periods	        stop-at-5
+timezone	America/New_York
+
+
+3. Stop instances over the weekend
+
+This schedule shows how to run instances from Monday 9 AM ET to Friday 5 PM ET. Since Monday and Friday are not full days, this schedule includes three periods to accommodate: Monday, Tuesday-Thursday, and Friday.
+
+Periods
+
+The first period starts tagged instances at 9 AM Monday and stops at midnight. This period includes the following fields and values.
+
+
+Field	    Value
+
+begintime.   09:00
+endtime	     23:59
+name	     mon-start-9am
+weekdays.    mon
+
+The second period runs tagged instances all day Tuesday through Thursday. This period includes the following fields and values.
+
+Field	       Value
+
+name	       tue-thu-full-day
+weekdays	tue-thu
+
+
+The third period stops tagged instances at 5 PM on Friday. This period includes the following fields and values.
+
+Field	    Value
+
+begintime   00:00
+endtime	    16:59
+name	    fri-stop-5pm
+weekdays    fri
+
+Schedule
+
+The schedule combines the three periods into the schedule for tagged instances. The schedule includes the following fields and values.
+
+
+Field	  Value  
+
+name	  mon-9am-fri-5pm
+periods	  mon-start-9am,tue-thu-full-day,fri-stop-5pm
+timezone  America/New_York
 
 
 
+-- When deploying the Instance Scheduler Hub Stack, the solution created an Amazon DynamoDB table containing several sample periods and schedules that you can use as a reference to create your own custom periods and schedules. To create a schedule in DynamoDB, modify one of the schedules in the configuration table (ConfigTable) or create a new one.
+
+-- open dynamodb table , cf will create tables for us , go n check tables 
+
+-- for this example , I have taken 
+
+Period = office-hours
+
+Schedule = uk-office-hours
+
+IMp : name of the period is to be same in the schedule period column
+
+-- change time zone in the schedule time zone 
+
+-- go to instance --> Tags 
+
+-- here tags are very important to do the actions so be careful while giving the tags 
+
+Here       key = Schedule      value = Schedule's Name 
+
+Eg:               Schedule             uk-office-hours
 
 
 
+-- once u set all these values u will able to see the instance will get stopped . By the specific time we have given 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- done 
 
 
 
