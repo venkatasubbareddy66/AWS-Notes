@@ -5096,6 +5096,12 @@ IAM --> roles --> creatae role for EC2 --> attach AmazonSSMManagedInstanceCore p
 
 
 
+-- some scenario based question 
+
+
+
+
+
 
 
 
