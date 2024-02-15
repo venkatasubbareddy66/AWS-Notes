@@ -5247,6 +5247,826 @@ Eg:               Schedule             uk-office-hours
 
 
 
+
+============================================================AMAZON SQS========================================
+
+Amazon SQS provides queues for high-throughput, system-to-system messaging. You can use queues to decouple heavyweight processes and to buffer and batch work. Amazon SQS stores messages until microservices and serverless applications process them.
+
+-- it is a message queuing service
+
+How it works ?
+
+workflow 
+
+producers --> AWS SQS --> SQS Queue --> Consumers
+
+
+-- Amazon SQS allows producers to send messages to a queue. Messages are then stored in an SQS Queue. When consumers are ready to process new messages they poll them from the queue. Applications, microservices, and multiple AWS services can take the role of producers or consumers.
+
+
+Benefits and features : 
+
+1 Highly scalable Standard and FIFO queues
+
+Queues scale elastically with your application. Nearly unlimited throughput and no limit to the number of messages per queue in Standard queues. First-In-First-Out delivery and exactly once processing in FIFO queues.
+
+2 Durability and availability
+
+Your queues are distributed on multiple servers. Redundant infrastructure provides highly concurrent access to messages.
+
+3 Security
+
+Protection in transit and at rest. Transmit sensitive data in encrypted queues. Send messages in a Virtual Private Cloud.
+
+4 Batching
+
+Send, receive, or delete messages in batches of up to 10 messages or 256KB to save costs.
+
+
+-- it is the first service launched by the AWS in 2004 , it is very popular for the de-coupling the applications 
+
+
+
+--------- it has 2 components Standard and FIFO queues , the differences are 
+
+1  Message Order
+
+-- Standard queues provide best-effort ordering which ensures that messages are generally delivered in the same order as they are sent. Occasionally (because of the highly-distributed architecture that allows high throughput), more than one copy of a message might be delivered out of order.
+
+-- FIFO queues offer first-in-first-out delivery and exactly-once processing: the order in which messages are sent and received is strictly preserved.
+
+2  Delivery
+
+-- Standard queues guarantee that a message is delivered at least once and duplicates can be introduced into the queue.
+
+-- FIFO queues ensure a message is delivered exactly once and remains available until a consumer processes and deletes it; duplicates are not introduced into the queue.
+
+3  Transactions Per Second (TPS)
+
+-- Standard queues allow nearly-unlimited number of transactions per second.
+
+-- FIFO queues allow to process up to 3000 messages per second per API action.
+
+4  Regions
+
+-- Standard queues are available in all the regions.
+
+-- FIFO queues are currently available in limited regions only.
+
+5  AWS Services Supported
+
+-- Standard Queues are supported by all AWS services.
+
+-- FIFO Queues are currently not supported by all AWS services like: CloudWatch Events, S3 Event Notifications, SNS Topic Subscriptions, Auto Scaling Lifecycle Hooks, AWS IoT Rule Actions, AWS Lambda Dead Letter Queues.
+
+
+What is Visibility timeout ?
+
+-- Visibility timeout sets the length of time that a message received from a queue (by one consumer) will not be visible to the other message consumers.
+
+-- The visibility timeout begins when Amazon SQS returns a message. If the consumer fails to process and delete the message before the visibility timeout expires, the message becomes visible to other consumers. If a message must be received only once, your consumer must delete it within the duration of the visibility timeout.
+
+-- The default visibility timeout setting is 30 seconds. This setting applies to all messages in the queue. Typically, you should set the visibility timeout to the maximum time that it takes your application to process and delete a message from the queue.
+
+eg : if one consumer is request a meaasge from SQS queue it will give message and it has 30 sec default value to read and deletes it , now if consumer 2 has requested for same message it won't send 'coz the visibility timeout is in active for 30 sec , so after 30 sec it will give message to other consumer 
+
+consumer will be : Applications , lambda functions, ec2 instances, and other aws services 
+
+-- If standard queue, when one consumer pick a message and fails, it will be available for other consumers within the visibility period.
+
+-- FIFO : If a message must be received only once, your consumer must delete it within the duration of the visibility timeout
+
+what is Delivery delay(DelaySeconds)?
+
+ Any messages that you send to the queue remain invisible to consumers for the duration of the delay period.
+
+ -- Receive message wait time(ReceiveMessageWaitTimeSeconds): the maximum amount of time that polling will wait for messages to become available.
+
+ -- Message retention period(MessageRetentionPeriod): amount of time that Amazon SQS retains a message that does not get deleted.
+
+ -- Maximum number of receives per message(maxReceiveCount): If the ReceiveCount for a message exceeds the maximum receive count for the queue, Amazon SQS moves the message to the associated DLQ.
+
+----------------------------------
+-- using lambda and SQS combination it is very powerful event driven solutions so, lambda polls SQS and process the messages and these messages are read in the batches and lambda function is invoked once for the each batch so u define the batch size in the lambda configuration , u can specify the batch size b/w 1 - 1000 and default value for the batch  10 
+
+lambda configuration for SQS
+
+ 1 SQS Batch processing : 
+
+-- As we discussed SQS messagaes are processed in batches not individually 
+
+-- Lambda deletes the SQS batch  automatically , if all messages e process successfully to avoid re-processing
+
+Failed scrnarios:
+
+-- if one or more messages will fail  lambda ll re-process the batch and u may get duplicate records (that's why Idempotency  important in lambda)
+
+How to avoid re-processing messagaes
+
+-- Reporting batch items Failures feature provided by the AWS 
+
+-- only failure messages will re-process through Reporting batch items Failures
+
+
+2  Batch Size :
+
+-- messages u want to process  once , default value is 10 
+
+-- keep the batch size 1 as small as , coz lambda will encounter lot of messages , it will keep on creating new lambda instance, u might face throttling issues so it has some limit to create lambda functions ryt? so 
+
+-- it is very important aspect of lambda-SQS integration 
+
+3 Batch Window :
+
+-- time u want to wait before invoking the function. it has to do with SQS Polling 
+-- default value is 0 . Which means the lambda will keep on polling SQS to know if it has messages equals o batchsize 
+
+-- Important as it can lead to un-necessary lambda polling hence un-necessary SQS and lambda billing
+
+
+Handling Failed messages (recommended)
+
+-- if a message s failed, it is retried by lambda until 
+
+- retention period is reached (14 days)
+- there is a dead-letter queue 
+
+-- so create DLQ with SQS so that ur lambda does not keep on invoking for 14 days 
+
+eg : ur retried policy number is 5 , it will picked by lambda only for 5 times after 5 times tyhe lambda will send this message to DLQ , this will saves u costs , un-necessary cloud watch logs ....
+
+
+==================LAB=================
+
+AWS SQS Trigger To Lambda Function
+
+
+step 1 : create one lambda function
+
+-- choose blue print --> search for SQS select that --> name of ur function --> create new role --> create function 
+
+-- once u create function with the new role created by the lambda function , u have to add other policies like  "AmazonSQSFullAccess", "AWSLambdaSQSQueueExecutionRole", to get permissions 
+
+
+Step 2 : create Queue
+
+-- create queue as standard queue --> give name and create queue
+
+-- now whatever the messages that we are giving here that will be going to trigger lambda 
+
+-- so create messages first 
+
+--  open queue --> below c.o lambda triggers add lambda function --> c.o send and receive messages --> once u trigger successfully with lambda type some messages in message box 
+
+-- once u do go n check in cloudwatch logs to see our messages 
+
+
+-- create one FIFO queue also 
+
+-- select Content-based deduplication in queue settings 
+
+-- when u try to enter message it will send to lambda 
+
+-- now try to send same message , it wont trigger in lambda 'coz here deduplication is going on through the FIFO , it wont send duplicate data again ,
+
+-- try to change the content , now u will see 
+
+or u can also so with group level deduplication also 
+
+-- the FIFO queue must end with the .fifo only 
+
+======================================================AMAZON EVENTBRIDGE============================================
+
+
+-- Amazon EventBridge is a serverless service that uses events to connect application components together, making it easier for developers to build scalable event-driven applications.
+
+-- Event Bridge is an Event Bus that helps in integrating different AWS Services , and custom applications and SAAS Applications 
+
+-- Earlier we have Cloud watch events , the only negative point is that , it did not support SAAS applications and custom applications outside from the AWS 
+
+-- EventBridge was build for the same purpose , u can create effortless event-driven architectures
+
+Eg 1 : u want to receive SNS notification every time production EC2 instance are terminated , this will be done by EventBridge
+
+Eg 2 : automated deployment using code pipelines at 11PM everyday
+
+Eg 3 : if a premier user deactivates himself from ur product , u want to :
+
+- Send and email for feedback 
+- Schedule Customer Representative call
+- Send customised offers for that use 
+
+
+-- these all things will done by the event Bridge and u can schedule the events also 
+
+-- It is fully managed service 
+
+-- pay what u use model 
+
+
+Different Parts in EventBridge:
+
+
+Working flow -----
+
+
+Event Producer --> Event --> Amazon EventBridge event Bus --> Rule ---AWS Lambda , AWS Kinesis Data Firehose, Amazon Simple Notification Service
+
+
+--  Event producer : AWS Service / Custom applications / Third Party SaaS providers,
+
+--  From the producers the event will generated , this will transform to the bus and it move to rules , in rules there are multiple rules and this rules will send to multiple targets 
+
+-- A single rule may have multiple targets and max target is 5 ,all targets will process in the event in parallel
+
+
+Important terms in EventBridge :
+
+1 Event  : An Event indicated a change in an environment 
+
+2 Rule   : A rule matches incoming events and routes them to targets for processing  
+
+3 Target : target application of ur rule. A target process events 
+
+Targets can include ec2 , lambda functions , kinesis streams , Ecs tasks,  , the target receive events in JSON format 
+
+4 Event Bus : An event bus receives events. When u create a rule , u associate it with a specific event bus and rules is matched only to events received by that event bus 
+
+- rule can not be create standAlone , it should have it's parent as EventBus
+
+Components of EventBridge :
+
+1 EventBridge Rule : A rule matches incoming events and sends them to targets for processing.
+
+2 EventBridge Pipes : A pipe connects an event source to a target with optional filtering and enrichment.
+
+3 EventBridge Schedule : A schedule invokes a target one-time or at regular intervals defined by a cron or rate expression.
+
+4 EventBridge Schema registry : Schema registries collect and organize schemas.
+
+
+EventBus : Usecases
+
+if a premier user deactivates himself from ur product , u want to :
+
+- Send and email for feedback 
+- Schedule Customer Representative call
+- Send customised offers for that use 
+
+
+In the above example , the working flow will be like 
+
+
+User deletes his subscription --> custom event is trigged --> rights custom event would be pass into the EventBus --> rule matching --> then it reaches to the targets , once the rule is matched  here then it sends to targets --> 1 the targets are Feedback service 2 Schedule call service 3 offers service 
+
+
+
+
+=======================================practicals=======================
+
+
+Example 1 
+
+1  Schedule AWS Lambda Functions Using EventBridge
+
+
+-- lambda scheduling use cases 
+
+- Automated backups at EOD of ur applications 
+
+- backend cleaning (including logs and temp files )
+
+- consolidated reports after business hours , so lambda can trigger  Athena queries and can run any database queries and send to business stack holders through SNS 
+
+
+- to schedule events u have two options 
+
+1 to schedule  at fixed rate -- for every 1 minute 
+
+2 Cron job (10 * * * * )
+
+-- open console 
+
+-- open lambda --> python 3.9 --> create function 
+
+-- write python code to invoke lambda function
+
+import json
+from datetime import datetime
+
+def lambda_handler(event, context):
+    # TODO implement
+    currentTime = datetime.now()
+    print("Time at which Lambda invoked" + str(currentTime))
+
+
+-- give empty JSON to test {}
+
+-- now go to Amazon eventBridge in console 
+
+-- c.o create rule --> schedule --> continue to create rule --> schedule that run at regular intervals--> select 1 minute --> select lambda function --> create rule 
+
+-- u can check in CloudWatch logs , for invoking is there or not 
+
+--  the logs are generated 
+
+
+-- if u want to monitor ur invocations --> Metrics --> all Metrics --> query --> choose AWS/events --> Myrule name 
+
+- metric name = COUNT(invocation)
+
+- filter by = Rulename = rule name that u have created in lambda function to test the function 
+
+- choose number in right corner to see the no. of invocations 
+
+
+-------------------------------------------
+
+Example 2 : EventBridge with SNS 
+
+
+-- AS we know that EventBridge will use for 2 process 
+
+1 event-event process : when the event has occurred according to our rule then it will trigger to the targets 
+
+2 schedule process : do schedule 
+
+-- in the above example we have seen Schedule event
+
+-- now event to event 
+
+- for example the ec2 is stopped then it will send alert to the subscribers on SNS Topic 
+
+-- open SNS in console --> create one topic --> standard --> create topic --> open topic -->create subscription --> add protocol email or phone number 
+
+-- when ever the instance is getting stooped then I would like send an alert to all the subscribers 
+
+-- this is called event-event process 
+
+-- create one ec2 instance 
+
+-- create rule in event bridge --> name --> rule with an event pattern --> in event pattern = select ec2 --> select event type as u want --> in Target1 choose AWS Service = SNS topic select SNS topic --> create rule 
+
+-- do stop the instance 
+
+-- u will get notification once the instance is get stopped 
+
+
+--------------- now for schedule event 
+
+-- create another rule , that is based on the time to stop the instance 
+
+-- select schedule pattern option --> A schedule that runs at a regular rate, such as every 10 minutes. --> target = terminateinstanceAPI call --> u can also add another target to get notification 
+ 
+
+-- the instance will get terminated after the time that u have specified 
+
+
+-- this is simple basic example for schedule pattern 
+
+
+
+==========================done=============================
+
+
+
+=====================================================================AMAZON ATHENA=============================================
+
+what is AWS Athena ?
+
+ANS : -- Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run.
+
+-- Athena is easy to use. Simply point to your data in Amazon S3, define the schema, and start querying using standard SQL. Most results are delivered within seconds. With Athena, there’s no need for complex ETL jobs to prepare your data for analysis. This makes it easy for anyone with SQL skills to quickly analyze large-scale datasets.
+
+-- Athena is out-of-the-box integrated with Amazon Glue Data Catalog, allowing you to create a unified metadata repository across various services, crawl data sources to discover schemas and populate your Catalog with new and modified table and partition definitions, and maintain schema versioning. You can also use Glue’s fully-managed ETL capabilities to transform data or convert it into columnar formats to optimize cost and improve performance.
+
+Benefits :
+ 
+1  Interactive Performance Even for Large Datasets :
+
+With Amazon Athena, you don't have to worry about having enough compute resources to get fast, interactive query performance. Amazon Athena automatically executes queries in parallel, so most results come back within seconds.
+
+2  Built on Presto, Runs Standard SQL
+
+Amazon Athena uses Presto with ANSI SQL support and works with a variety of standard data formats, including CSV, JSON, ORC, Avro, and Parquet. Athena is ideal for quick, ad-hoc querying but it can also handle complex analysis, including large joins, window functions, and arrays. Amazon Athena is highly available; and executes queries using compute resources across multiple facilities and multiple devices in each facility. Amazon Athena uses Amazon S3 as its underlying data store, making your data highly available and durable.
+
+3  Serverless, No ETL
+
+Athena is serverless. You can quickly query your data without having to setup and manage any servers or data warehouses. Just point to your data in Amazon S3, define the schema, and start querying using the built-in query editor. Amazon Athena allows you to tap into all your data in S3 without the need to set up complex processes to extract, transform, and load the data (ETL).
+
+4  Only Pay for Data Scanned
+
+With Amazon Athena, you pay only for the queries that you run. You are charged ¥41.20 per terabyte scanned by your queries. You can save from 30% to 90% on your per-query costs and get better performance by compressing, partitioning, and converting your data into columnar formats. Athena queries data directly in Amazon S3. There are no additional storage charges beyond S3.
+
+
+Features :
+
+1  Fast Performance
+
+With Amazon Athena, you don’t have to worry about managing or tuning clusters to get fast performance. Athena is optimized for fast performance with Amazon S3. Athena automatically executes queries in parallel, so that you get query results in seconds, even on large datasets.
+
+2  Easy to Get Started
+
+To get started, log into the Athena console, define your schema using the console wizard or by entering DDL statements, and immediately start querying using the built-in query editor. You can also use Amazon Glue to automatically crawl data sources to discover data and populate your Data Catalog with new and modified table and partition definitions. Results are displayed in the console within seconds, and automatically written to a location of your choice in S3. You can also download them to your desktop. With Athena, there’s no need for complex ETL jobs to prepare your data for analysis. This makes it easy for anyone with SQL skills to quickly analyze large-scale datasets.
+
+3  Serverless, Zero Infrastructure, Zero Administration
+
+Amazon Athena is serverless, so there is no infrastructure to manage. You don’t need to worry about configuration, software updates, failures or scaling your infrastructure as your datasets and number of users grow. Athena automatically takes care of all of this for you, so you can focus on the data, not the infrastructure.
+
+4  Pay per Query
+
+With Amazon Athena, you pay only for the queries that you run. You are charged based on the amount of data scanned by each query. You can get significant cost savings and performance gains by compressing, partitioning, or converting your data to a columnar format, because each of those operations reduces the amount of data that Athena needs to scan to execute a query.
+
+5  Easy to Query, Just Use Standard SQL
+
+Amazon Athena uses Presto, an open source, distributed SQL query engine optimized for low latency, ad hoc analysis of data. This means you can run queries against large datasets in Amazon S3 using ANSI SQL, with full support for large joins, window functions, and arrays. Athena supports a wide variety of data formats such as CSV, JSON, ORC, Avro, or Parquet. You can also connect to Athena from a wide variety of BI tools using Athena's JDBC driver.
+
+6  Highly Available & Durable
+
+Amazon Athena is highly available and executes queries using compute resources across multiple facilities, automatically routing queries appropriately if a particular facility is unreachable. Athena uses Amazon S3 as its underlying data store, making your data highly available and durable. Amazon S3 provides durable infrastructure to store important data and is designed for durability of 99.999999999% of objects. Your data is redundantly stored across multiple facilities and multiple devices in each facility.
+
+7  Secure
+
+Amazon Athena allows you to control access to your data by using Amazon Identity and Access Management (IAM) policies, access control lists (ACLs), and Amazon S3 bucket policies. With IAM policies, you can grant IAM users fine-grained control to your S3 buckets. By controlling access to data in S3, you can restrict users from querying it using Athena. Athena also allows you to easily query encrypted data stored in Amazon S3 and write encrypted results back to your S3 bucket. Both, server-side encryption and client-side encryption are supported.
+
+
+Different ways to access Athena :
+
+1 AWS console
+2 Athena API 
+3 Athena CLI 
+4 JDBC connection
+
+-- it integrates with AWS Glue Data Catalog , it is ETL Tool
+
+-- it also integrates with Amazon Quicksight for data visualization 
+
+
+Why Athena got popular:
+
+-- used by data Analysts  query large S3 data statements
+
+-- No need to spin up serveres or Hadoop clusters
+
+ Athena Use cases :
+
+-- analyze CloudTrail/CloudFront/VPC/ELB logs
+-- integration trough ODBC/JDBC with other visualization tools
+-- Ad-hoc logs analysis
+
+Athena Cost Model : 
+
+-- pay only for queries
+
+- $5 per TB data Scanned
+- charged for the no.of bytes scanned (with min 10MB PER Query)
+- NO charge for DDL(CREATE,ALTER,DROP) and failed quaries
+- charges for cancelled queries (for the data scanned)
+
+-- How to save cost?
+
+- Columnar formats(Parquet and ORC)
+- using partitions
+- compressions(gzip,snappy)
+- number of files(more related performance optimization) : Size of files stored in the s3 , it should be min 10MB to 50MB then Athena should not spend effort in scanning multiple small files 
+
+
+-- Athena - creating tablesm
+
+-- create table using 
+
+- DDL Commands
+- AWS Glue crawler
+- JDBC driver
+- create table wizard -- through AWS console
+
+Note : only EXTERNAL tables re created in the Athena if u dont provides EXTERNAL keyword , u will get error
+
+-- Athena queries
+
+- quer results and metadata stored in s3 
+- u specify the specific folder in s3 to store the output
+- stored procedures not supported
+- certain DDL Operations are also not supported
+- Athena federated query (preview feature) : when u query the data , u provide s3 folder so, with federated queries u can combine the results from multiple data eg dynamoDB, AWS storage service,
+
+
+---------------Practicals---------------------
+
+Step 1 : create s3 bucket and insert some .csv data 
+
+--  insert some  data in the bucket 
+
+--   create one folder inside bucket and go to google and search for sample .csv files downlaod and upload in the s3 bucket 
+
+Step 2 : Glue
+
+-- open glue in console
+
+-- glue --> left panel data Catalog --> crawlers --> add crawlers --> give name of ur crawler --> not yet --> add a data source --> choose s3 --> copy uri of ur bucket and paste in S3 path --> click on create new role , give name of ur role and select nxt --> click on create new database --> give name of ur database , nxt --> frequency = on-demand --> create crawler
+
+-- now try to run the crawler , 
+
+--  u can also check the logs in cloudwatch 
+
+-- once u done with the running part , a table will added to the database , table name is same as the folder name of s3 that u have uploaded 
+
+--  if ur data is not match , then u can also do edit ur schema 
+
+
+step 3 : Athena
+
+-- open Athena in the console
+
+-- in the left panel u will see the database and table , u can check all the coloums of ur table
+
+-- now do queries , before that u should add destination to store our outputs in the s3 bucket 
+
+-- go to s3 buckets create one folder in the bucket to store the outputs
+
+-- now try to query in athena editor
+
+-- SELECT * FROM "weather-database"."weather_csv" limit 10;
+
+above is eg query , u can replace with ur details 
+
+weather-database = database name 
+
+weather_csv = table name
+
+
+NOTE : if u r getting zero records but query is successfull then do 
+
+ur s3 location is like this 
+
+s3://doc-example-bucket/table1.csv 
+
+-- to get avoid from this error , jst create one sub-folder and upload .csv file in that subfolder 
+
+s3://doc-example-bucket/table1/table1.csv
+
+
+
+-- in the crawler location u have to give like this , then u won't get any error
+
+s3://doc-example-bucket/table1/
+
+
+
+=============================================================DynamoDB Streams=================================================
+
+DynamoDb Streams : it is an ordered flow of information anout changes  items in a DynamoDb table. When u enable stream on a table , DynamoDb captures information about every modification to data items n the table 
+
+-- Capture item-level changes in your table, and push the changes to a DynamoDB stream. You then can access the change information through the DynamoDB Streams API.
+
+Stream Records can be used for 
+
+-- Kinesis Data Streams/Client library 
+-- AWS Lambda
+--Data is retined for 24 hrs 
+
+
+Uses For : 
+
+-- Analytics purpose
+-- Cross Region replication
+-- Real time changes
+
+Step 1 : create DynamoDb table
+
+-- create table and give partiton key
+
+-- once u create table , add some items into the table
+
+-- go to table --> exports and streams --> turn on DynamoDB stream --> New and old images --> Turn on streams 
+
+
+Step 2 : create lambda function 
+
+--  in the same page , choose create trigger
+
+-- create new function --> Use Blue print --> search for DynamoDB and select Process updates made to table with python --> give function name --> choose create a new role --> give DynamoDb details in trigger section --> create function
+
+-- once ur function got created , u will get some error 
+
+--  function --> configuration --> permissions --> c.o role --> attach permissions (policies) --> DynamoDBfullaccess --> do refresh the screen the error will disappear
+
+-- ince ur  function is created go back to the trigger page in DynamoDB table add this function with batch size is 100 for this eg 
+
+
+Step 3 : Test 
+
+-- go back to the DynamoDB table and update and add some items into the table 
+
+-- do some chganges as you want 
+
+-- the changes will trigger to our lambda function '
+
+-- now go to function --> monitor--> view cloudwatch logs --> now you will able to see all the changes , INSERT,UPDATE,DELETE all the modifications that are captured through the DynamoDB Stream APi and trigger through the lambda and you will able to see in the cloud watch logs what has modification occurs 
+
+
+
+=======================================DONE===========================================
+
+
+==================================================S3 Batch Replication===============================
+
+
+
+
+NOTE : Do not create your own IAM Roles and policies for this project , You just go with "create new Role" option while doing this process
+
+
+
+Replicate Existing Objects in your Amazon S3 Buckets with Amazon S3 Batch replication
+
+
+Mian Aim is how to replicate objects already existing in your buckets within the same AWS Region or across different AWS Regions with Amazon Simple Storage Service (Amazon S3) Batch Replication.
+
+
+Amazon S3 Replication is an elastic, fully managed, low-cost feature that replicates objects between Amazon S3 buckets. You can replicate new and existing data from one source bucket to multiple destination buckets in the same or different AWS Regions. Whether you want to maintain a secondary copy of your data for data protection or have data in multiple geographies to provide users with the lowest latency, S3 Replication gives you the controls you need to meet your business needs.
+
+
+You can use Amazon S3 Batch Replication to backfill a newly created bucket with existing objects, re-replicate objects that have replicated already or were previously unable to replicate, migrate data across accounts, or add new buckets to your data lake. S3 Batch Replication jobs are created on top of an existing replication configuration and run for all replication rules that are enabled for the bucket. For more information on S3 Replication, visit the Replicating objects section in the Amazon S3 User Guide, and for a step-by-step tutorial on setting up S3 Replication visit Replicate data within and between AWS Regions using Amazon S3 Replication. By the end of this tutorial, you will be able to replicate existing data within and between AWS Regions using Amazon S3 Replication.
+
+
+Data lakes : Data lakes on AWS help you break down data silos to maximize end-to-end data insights. With Amazon Simple Storage Service (Amazon S3) as your data lake foundation, you can tap into AWS analytics services to support data your needs from data ingestion, movement, and storage to big data analytics, streaming analytics, business intelligence, machine learning (ML), and more – all with the best price performance. More than 700,000 data lakes run on AWS.
+
+Amazon S3 is the best place to build data lakes because of its unmatched durability, availability, scalability, security, compliance, and audit capabilities. With AWS Lake Formation, you can build secure data lakes in days instead of months. AWS Glue then allows seamless data movement between data lakes and your purpose-built data and analytics services.
+
+Amazon Glue : 
+
+AWS Glue is a serverless data integration service that makes it easy for analytics users to discover, prepare, move, and integrate data from multiple sources. You can use it for analytics, machine learning, and application development.
+
+
+Configure S3 Replication on your Amazon S3 bucket :
+
+-- Create two S3 buckets
+
+-- Create an S3 Replication rule on your S3 bucket
+
+-- Choose a destination S3 bucket
+
+-- Choose or create IAM roles for replication
+
+-- Specify the encryption type (optional)
+
+-- Choose the destination S3 storage class
+
+-- Enable additional replication options (optional)
+
+
+Configure S3 Batch Replication for existing objects in your Amazon S3 bucket in the following ways:
+
+-- Create an S3 Batch Replication job when you create a new replication configuration on your bucket or when you add a new destination to your existing replication configuration
+
+-- Create an S3 Batch Replication job from the S3 Batch Operations home page (recommended)
+
+-- Create an S3 Batch Replication job from existing replication configuration page
+
+
+Implementation :
+
+Step 1: Create two Amazon S3 buckets
+
+-- Log in to the AWS Management Console using your account information. In the search bar, enter S3, then select S3 from the results.
+
+-- In the left navigation pane on the S3 console, choose Buckets, and then choose Create bucket.
+
+-- Enter a descriptive, globally unique name for your source bucket. Select the AWS Region you want your bucket created in. 
+
+-- Enable Bucket Versioning. Bucket versioning is required for both source and destination S3 buckets for S3 Replication. 
+
+-- You can leave the remaining options as defaults. Navigate to the bottom of the page and choose Create bucket.
+
+-- Repeat the preceding steps to create another S3 bucket to serve as the destination bucket. This new bucket can exist in the same AWS Region as the source bucket for S3 Same-Region Replication (S3 SRR) or in a different AWS Region for S3 Cross-Region Replication (S3 CRR). Make sure to enable Bucket Versioning for the destination S3 bucket and name your new bucket something unique.
+
+
+Step 2: Create an S3 Replication Configuration on your S3 bucket
+
+-- From your list of S3 buckets, choose your source S3 bucket. The console takes you to the S3 bucket landing page.
+
+-- On the S3 bucket landing page, you can review the Objects, Properties, Permissions, Metrics, Management, and Access Points for the selected S3 bucket.
+
+-- On the Management tab, under Replication rules, select Create replication rule.
+
+-- Enter a Replication rule name and make sure Enabled is selected under the Status section. If the replication rule is disabled, it will not run.
+
+NOTE: Amazon S3 attempts to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects are replicated according to the rule with the highest priority. The lower the number, the higher the priority. You can edit the priority of each replication rule on the replication configuration page.  
+
+-- Narrow the scope of replication by defining a Filter type (Prefix or Tags), or choose to replicate the entire bucket. For example, if you want to only replicate objects that include the prefix Finance, specify that scope. For more information on filtering objects for replication
+
+--  choose  rule scope      Limit the scope of this rule using one or more filters
+
+-- Limit the scope of this rule using one or more filters
+
+-- You can't create a new S3 bucket during the replication setup process.
+
+-- Encryption is optional
+
+-- Destination storage class is optional 
+
+-- Choose any additional replication options you need:
+
+-- Replication Time Control (RTC): S3 RTC helps you meet compliance and business requirements because it provides an SLA of 15 minutes to replicate 99.99% of your objects. You can enable S3 RTC along with S3 CRR and S3 SRR. Replication metrics and notifications are enabled by default.
+
+-- Replication metrics and notifications: For non-RTC rules, you have the option to select Replication metrics and notifications, which provides detailed metrics to track minute-by-minute progress of bytes pending, operations pending, operations failed, and replication latency for the replication rule.
+
+-- Delete marker replication: Selecting Delete marker replication means deletes on the source bucket will be replicated to the destination bucket. This should be enabled if you want to keep the source and destination buckets in sync, but not if the goal is to protect against accidental or malicious deletes.
+
+-- Replica modifications sync: To establish two-way replication between two S3 buckets, create bidirectional replication rules (A to B, and B to A) and enable Replica modification sync for the replication rules in both the source and destination S3 buckets. This will help you to keep object metadata such as tags, ACLs, and Object Lock settings in sync between replicas and source objects.
+
+NOTE : S3 RTC, Replication metrics and notifications, and Replica modification sync are not supported while replicating existing objects with S3 Batch Replication.
+
+-- When you have configured the replication, choose Save.  
+
+-- When you create the first rule in a new replication configuration for your S3 bucket or add a new destination AWS Region to an existing configuration, you have the option to enable existing object replication for that replication rule. To replicate existing objects, choose, Yes, replicate existing objects, and then choose Submit.
+
+-- The console takes you to the Create Batch Operations job page.
+
+
+
+Step 3: Replicate existing objects while creating a new replication configuration
+
+
+-- On the Create Batch Operations job page, you can review S3 Batch Operations Job settings such as job run options, scope of S3 completion reports, and permissions.
+
+-- Set Job run options. If you want the S3 Batch Replication job to run immediately, you can choose Automatically run the job when it’s ready. If you want to wait to run the job when it’s ready, you can save the Batch Operations manifest to review the list of objects to be replicated.
+
+-- As long as S3 Batch Operations successfully processes at least one object, Amazon S3 generates a completion report after the batch replication job completes, fails, or is cancelled. The completion report contains additional information for each task, including the object key name and version, status, error codes, and descriptions of any errors. We recommend choosing Generate completion report for All tasks so that you can review the status of all objects replicating with this job. For examples of completion reports, 
+
+-- Make sure that the IAM role associated with this Batch Replication job has sufficient permissions to perform S3 Batch Operations on your behalf. For more information, see the documentation on configuring IAM policies for Batch Replication and granting permissions for Amazon S3 Batch Operations.
+
+-- Review the configuration, and select Save.
+
+-- You are redirected to the Batch Operations home page.
+
+-- Select the Job ID of your new job to review the job configuration. You can also track the status of the Batch Replication job.
+
+
+Step 4: Replicate existing objects with existing replication configuration
+
+-- Apart from creating a Replication job for a new replication rule as described in the previous step, you can also create S3 Batch Replication jobs for existing replication rules in S3 buckets. To do this, return to the Amazon S3 console home page.
+
+-- On the left navigation pane of the console home page, choose Batch Operations, and then choose Create job.
+
+-- On the Create job page, select the AWS Region where you want to create your Batch Replication job. You must create the job in the same AWS Region in which the source S3 bucket is located.
+
+-- Provide the list of objects to replicate. You can add a user-generated manifest in the form of an Amazon S3 inventory report or a CSV file. The manifest needs to have all of the object versions that need to be replicated. Amazon S3 can also generate a manifest for you using the existing S3 Replication configuration on the source bucket.
+
+-- NOTE: In this example, we chose Create manifest using S3 Replication configuration to let Amazon S3 generate a manifest on our behalf and chose “aws-s3-replication-tutorial-source-bucket” as the source bucket. If you choose to let Amazon S3 generate a manifest for you, you will also see additional filters such as object creation date and replication status to reduce the scope of the job.
+
+-- If you chose Create manifest using S3 Replication Configuration on the previous page, the only Operation option is Replicate. This is because replication is the only operation that is permitted while using an S3 generated manifest. Select Replicate, and then choose Next.
+
+-- Enter a Description to best define the purpose of the job.
+
+-- Select a Priority to indicate the relative priority of this job to others running in your account. A higher number indicates higher priority. For example, a job with Priority 2 will be prioritized over a job with priority 1. S3 Batch Operations prioritizes jobs according to priority numbers, but strict ordering isn't guaranteed. Therefore, you shouldn't use job priorities to ensure that any one job starts or finishes before any other job. If you need to ensure strict ordering, wait until one job has finished before starting the next.
+
+-- Choose whether you want to generate a completion report. 
+
+-- Choose a valid Batch Operations IAM role to grant Amazon S3 permissions to perform actions on your behalf.
+
+-- You must also attach a Batch Replication IAM policy to the Batch Operations IAM role. To create a valid IAM role and policy see, configuring IAM policies for Batch Replication.
+
+-- Add Job tags to your Batch Replication job, and then choose Next to review your job configuration.
+
+-- On the Review page, choose Edit to make changes, then choose Next to save your changes and return to the Review page.
+
+-- When your job is ready, choose Create job.  
+
+-- After the Batch Replication job is created, Batch Operations processes the manifest. If successful, it will change the job status to Awaiting your confirmation to run. You must confirm the details of the job before it can run.
+
+-- When the job is successful, a banner displays at the top of the Batch Operations page.
+
+
+Step 5: Create Batch Replication job from S3 Replication configuration page
+
+-- From your list of S3 buckets, choose the S3 bucket that you want to configure as your source for replication.
+
+-- The console takes you to the S3 bucket landing page.
+
+-- Review the Objects, Properties, Permissions, Metrics, Management, and Access Points for the selected S3 bucket.
+
+-- On the Management tab, under Replication rules, select View replication configuration.
+
+-- On the replication configuration home page for your source bucket, choose Create replication job to go to the Create job page for S3 Batch Operations. Repeat the previous steps to create a Batch Replication job from the existing replication configuration.
+
+
+Step 6: Monitor the progress of an S3 Batch Replication job
+
+-- After a Batch Replication job is created and run, it progresses through a series of statuses. You can track the progress of a Batch Replication job by referring to these statuses on the Batch Operations home page.
+
+For example, a job is in the New state when it is created, moves to the Preparing state when Amazon S3 is processing the manifest and other job parameters, then moves to the Ready state when it is ready to run, Active when it is in progress, and finally Complete when the processing completes. For a full list of job statuses, see Batch Operations job statuses.
+
+-- You can choose to generate a Completion report when you create your Batch Replication job to track the status of object replication. The Completion report is a CSV file that is generated by Amazon S3 after a job completes, fails, or is cancelled as long as at least one task has been successfully invoked with S3 Batch Operations.
+
+-- Additionally, if you have Replication metrics or S3 Replication Time Control (S3 RTC) enabled for your replication rule, you can review the number of failed operations per minute on the Amazon S3 console and Amazon CloudWatch console with the Operations Failed Replication metric. For more information, refer to S3 Batch Operations completion reports and monitoring progress with S3 Replication metrics.
+
+
+
+
+
+
 -- some scenario based question 
 
 1   u have been tasked with encrypting EBS Volumes that are restored from unencrypted EBS snapshots . What should u do ? 
