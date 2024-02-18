@@ -643,6 +643,26 @@ Note : io1,io2 , gp3 are iops configurable
 
 -- up to 16 EC2 instance at a time can be attached 
 
+-- EBS Multi-Attch vs Elastic FIle System
+                  EFS            |      EBS-Multi-Attach
+
+Stoarge Type =   file system            Block Storage
+
+Service Type =   Fully manages          Needs To be provisioned
+
+Accessibility =  Regional                Zonal
+
+durability   =   Data Replicated across Multiple AZ's Within a region   |  Data Replicated across same AZ's 
+
+Data Scalability = Unlimited             Limited
+
+pricing Model =    pay for what u use    Pay for provisioned Capacity
+
+Storage Tiers =    Stad and Std-IA       Not supported 
+
+Instance Scalabilty =  can scale to hundreds to thousnds |        Currently limited to 16
+
+
 2 Instace store volumes 
 
 - not persistent / Temporry storage
