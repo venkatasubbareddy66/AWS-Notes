@@ -663,6 +663,47 @@ Storage Tiers =    Stad and Std-IA       Not supported
 Instance Scalabilty =  can scale to hundreds to thousnds |        Currently limited to 16
 
 
+-- U can Not attach volumes to Non-Nitro instance Like t2.micro , u can do with t3.micro for Multi_attach 
+
+---------------------LAB-------------------
+
+-- create 2 instances with t3.micro configuration
+-- create one volume with configuration of io2 , as same zone as instance that u have created 
+-- now attach volume to the both instances
+-- in order to working with these part we have to follow some configurations , we have to convert these volumes to the file systems 
+-- how to do?
+-- connect both instances
+-- perform some cmnds 
+sudo su
+lsblk    -- to check the volume is attached or not 
+-- u can able to see the volume that is attached like eg : nvme1n1
+--  check file system it is there or not 
+file -s /dev/nvme1n1 
+-- we do not have any file systems here 
+NOTE : convert file systems on one server only not in 2 serves
+now create file system 
+mkfs -t xfs /dev/nvme1n1 
+-- now creat directory
+mkdir <anyname>
+now do mount /dev/nvme1n1 testtf(ur name of directory)
+df -h to see check the mounting 
+-- enter into directory 
+cd testtf
+create some files in inti
+touch subbu.txt
+-- now the same file should be present in the another server also so chekc 
+-- go to 2nd server do sudo su then  create one folder
+mkdir <name>
+do mount here 
+/dev/nvme1n1 <name of ur directory in second server)
+go to directory and do ls to check the file is there or not 
+
+-- the file is present in 2nd server also , here it is replicating the data from one server to another server 
+
+== these are some limitations , so always go for the EFS 
+
+
+
 2 Instace store volumes 
 
 - not persistent / Temporry storage
